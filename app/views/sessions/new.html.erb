@@ -1,38 +1,26 @@
-<% form_tag session_path do -%>
-	<div id="login_container">
-		<div id="login_head">
-			<%#= link_to(image_tag('/images/projects_by_nuve.png', :id => 'projects_label'), 'http://www.lanuve.com', :target => '_blank') %>
-		</div>
-		<div id="login_body"><%=content_tag	:div, flash[:notice] || flash[:error] || '<br />', :style => 'color:white;font-size:14px;text-align:center;'%>
-	    <div id="login_body_content_wrapper">
-	      <span style="font-size:30px;font-weight:bold;color: white;margin-left:5px;height:32px">
-					Login
-				</span><br />
-	      <span style="font-size:10px;font-weight:bold;color:#999;margin-left:7px">
-					Please Log In Below
-				</span><br />
-	      <div class="login_row">
-	        <div class="login_label_box">
-						<%= label_tag 'login', 'Username', :class => 'login_label' %>
-					</div>
-					<%= text_field_tag 'login', @login, :class => 'login_input' %>
-	      </div>
-				<div class="login_row">
-	        <div class="login_label_box">
-						<%= label_tag 'password', 'Password', :class => 'login_label' %>
-					</div>
-					<%= password_field_tag 'password', nil, :class => 'login_input' %>
-	      </div>
-				<div id="remember_forgot">
-					<%= check_box_tag 'remember_me', '1', @remember_me %>
-					<div style="width:192px;float:right;color:#999;font-weight:bold">
-						<%= label_tag 'remember_me', 'Remember me'%> | <%= link_to 'Forgot password?', '#', :style => 'text-decoration:underline;color:#999'%>
-					
-					</div><br class="clearboth"/><br class="clearboth"/>
-					<div style="width:130px;margin:8px auto;"><%= submit_link( 'Log In', '') %>
-				</div>
-			
-	    </div>
-		</div>
-	</div>
+<% form_tag session_path, :class => 'login_form' do -%>
+				
+	<% if flash[:notice].blank? %>
+		<p class="no-border"><strong>Please enter credentials</strong></p>
+	<% else %>
+		<p class="no-border"><strong><%= flash[:notice]%></strong></p>
+	<% end %>
+
+	<p>	
+		<label for="login">Your username</label><br />
+		<%= text_field_tag 'login', @login, :tab_index => 2 %>
+	</p>
+
+	<p>
+		<label for="password">Your password</label><br />
+		<%= password_field_tag 'password', nil %>		
+	</p>	
+
+	<p class="no-border">
+		<input class="button" type="submit" value="Submit" tabindex="5" />
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<%= check_box_tag 'remember_me', '1', @remember_me %>
+		<%= label_tag 'remember_me', 'Remember me'%> 
+	</p>
+	
 <% end %>
