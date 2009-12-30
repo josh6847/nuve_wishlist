@@ -1,0 +1,11 @@
+Dear <%= @recipient['name'] %>,
+<br /><br />
+Thank you for joining Nuve's Butler.
+<br /><br />
+In order to login to the site, you'll need to verify your account by clicking the link below:
+<br /><br />
+<%= link_to "http://localhost:3000/#{@recipient.verification_url}", "http://localhost:3000/#{@recipient.verification_url}" %>
+<br /><br />
+Thanks,
+<br />
+Nuve
