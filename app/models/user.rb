@@ -2,7 +2,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   USER_ACCOUNT_VERIFICATION_TOKEN = "3f9c2bcc50d816dee16552ac5c39cde16908074a"
   
-  validates_presence_of :login, :email#, :phone, :first_name, :last_name
+  before_create :normalize_fields, :validate
+  validates_presence_of :email, :login#, :phone, :first_name, :last_name
   validates_uniqueness_of :login, :on => :create, :message => "already exists and must be unique."
   validates_uniqueness_of :email, :on => :create, :message => "already exists and must be unique."
   validates_confirmation_of :password  
@@ -11,7 +12,6 @@ class User < ActiveRecord::Base
   attr_accessor :password   # Virtual attribute for the unencrypted password
   
   #verification for validation of user email address: send notifications, etc
-  before_create :normalize_fields, :validate
   after_create :send_verification
   
   def normalize(field="", title_case = true)
