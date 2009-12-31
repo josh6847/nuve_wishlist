@@ -35,7 +35,7 @@ namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
     #run "if [ -d \"#{current_path}/tmp\" ]; then touch #{current_path}/tmp/restart.txt fi"
-    #run "touch #{current_path}/tmp/restart.txt"
+    run "touch #{current_path}/tmp/restart.txt"
   end
 
   [:start, :stop].each do |t|

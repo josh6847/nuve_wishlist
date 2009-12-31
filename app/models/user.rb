@@ -2,7 +2,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   USER_ACCOUNT_VERIFICATION_TOKEN = "3f9c2bcc50d816dee16552ac5c39cde16908074a"
   
-  validates_presence_of :login, :email, :phone#, :first_name, :last_name
+  validates_presence_of :login, :email#, :phone, :first_name, :last_name
   validates_uniqueness_of :login, :on => :create, :message => "already exists and must be unique."
   validates_uniqueness_of :email, :on => :create, :message => "already exists and must be unique."
   validates_confirmation_of :password  
