@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   attr_accessor :password   # Virtual attribute for the unencrypted password
   
   #verification for validation of user email address: send notifications, etc
-  before_create :normalize_fields, :validate_phone
+  before_create :normalize_fields, :validate
   after_create :send_verification
   
   def normalize(field="", title_case = true)
@@ -126,6 +126,13 @@ class User < ActiveRecord::Base
   
     def validate
       errors.add_to_base("Password cannot be blank.") if password_hash.blank?
+    	_phone = self.phone.gsub(/[^\d]/,"")
+    	debugger
+    	unless _phone.length == 10
+    	  self.errors.add_to_base("Phone must contain 10 digits")
+      else
+        self.phone = "#{_phone[0..2]}-#{_phone[3..5]}-#{_phone[6..9]}"
+    	end
     end
   
     def self.encrypted_password(password, salt)
@@ -139,16 +146,6 @@ class User < ActiveRecord::Base
     def send_verification
       Notifier.deliver_account_verification(self)
     end
-    
-    def validate_phone
-      debugger
-  	  _phone = self.phone.gsub(/[^\d]/,"")
-  	  unless _phone.length == 10
-  	    self.errors.add_to_base("Phone must contain 10 digits")
-      else
-        self.phone = "#{_phone[0..2]}-#{_phone[3..5]}-#{_phone[6..9]}"
-  	  end
-  	end
     
 end
 
