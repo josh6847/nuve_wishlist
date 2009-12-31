@@ -7,7 +7,7 @@
 <% end unless @user.errors.blank? %>
 
 
-<% form_for @user, :url => {:controller => 'users', :action => 'create'}, :class => 'login_form' do  %>
+<% form_for @user, :url => {:controller => 'users', :action => 'create'}, :html => {:class => 'login_form'} do  %>
 
 	<% if flash[:notice].blank? %>
 		<p class="no-border"><strong>Please fill out</strong></p>
