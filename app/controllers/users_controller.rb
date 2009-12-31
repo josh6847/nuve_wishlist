@@ -45,10 +45,10 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
+    #respond_to do |format|
+    #  format.html # new.html.erb
+    #  format.xml  { render :xml => @user }
+    #end
     #render :update do |page|
     #  page << "$('#signup_popup_box_wrapper').show();"
     #  #page.replace_html 'login_popup_box'
@@ -62,7 +62,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:notice] = 'Thank you for signing up.  You should receive an email shortly.'
-        format.html { redirect_back_or_default(root_path) }
+        #format.html { redirect_back_or_default(root_path) }
+        format.html { redirect_to '/' }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
@@ -138,7 +139,6 @@ class UsersController < ApplicationController
   protected
   
     def check_verification_token
-      debugger
       unless(params[:id] && params[:token] && (@user = User.find(params[:id])) && @user && (@user.verification_hash == params[:token]))
         flash[:notice] = "Verification link is invalid."
         logger.warn "Failed verification link or token: '#{params[:id]}' from #{request.remote_ip} at #{Time.now.utc}"

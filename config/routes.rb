@@ -3,8 +3,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => 'sessions', :action => 'new'
   map.resource :session
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.signup 'sign-up', :controller => 'users', :action => 'new'
+  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
+  map.login 'login', :controller => 'sessions', :action => 'new'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

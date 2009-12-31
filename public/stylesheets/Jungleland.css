@@ -797,3 +797,26 @@ p.thumbs {
 form.login_form input[type="text"], form.login_form input[type="password"] {
 	width:470px;
 }
+
+.popup_errors {
+	width:400px;
+	margin:auto;
+	color:red;
+	font-weight:bold;
+	text-align:center;
+}
+
+.popup_errors ul {
+	margin-left:10px;
+	width:300px;
+	padding:5px;
+	text-align:left;
+	list-style-type:square;
+}
+
+.popup_errors li {
+	font-size:12px;
+	font-weight:bold;
+	color:red;
+	margin:2px 0;
+}

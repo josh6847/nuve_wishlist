@@ -21,6 +21,7 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<%= check_box_tag 'remember_me', '1', @remember_me %>
 		<%= label_tag 'remember_me', 'Remember me'%> 
+		<span class="float-right">Not registered? &nbsp;&nbsp;<%= link_to 'Sign up!', signup_path %></span>
 	</p>
 	
 <% end %>

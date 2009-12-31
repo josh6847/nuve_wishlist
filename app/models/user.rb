@@ -2,17 +2,26 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   USER_ACCOUNT_VERIFICATION_TOKEN = "3f9c2bcc50d816dee16552ac5c39cde16908074a"
   
-  validates_presence_of :first_name, :last_name, :email, :login
+  validates_presence_of :login, :email, :phone#, :first_name, :last_name
   validates_uniqueness_of :login, :on => :create, :message => "already exists and must be unique."
   validates_uniqueness_of :email, :on => :create, :message => "already exists and must be unique."
   validates_confirmation_of :password  
   
-  attr_accessible :login, :first_name, :last_name, :email, :password, :password_confirmation
+  attr_accessible :login, :phone, :email, :password, :password_confirmation
   attr_accessor :password   # Virtual attribute for the unencrypted password
   
   #verification for validation of user email address: send notifications, etc
-  before_create :normalize_fields
+  before_create :normalize_fields#, :validate
   after_create :send_verification
+  
+  def validate
+	  _phone = self.phone.gsub(/[^\d]/,"")
+	  unless _phone.length == 10
+	    self.errors.add_to_base("Phone must contain 10 digits")
+    else
+      self.phone = "#{_phone[0..2]}-#{_phone[3..5]}-#{_phone[6..9]}"
+	  end
+	end
   
   def normalize(field="", title_case = true)
     return "" if field.blank?
