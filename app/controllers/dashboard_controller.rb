@@ -19,7 +19,8 @@ class DashboardController < ApplicationController
     @deals = true
   end
   
-  def method_missing *args
+  def method_missing(*args)
+    @wishlist = true
     render :action => 'wishlist'
   end
 
