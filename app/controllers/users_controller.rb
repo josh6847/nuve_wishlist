@@ -102,7 +102,7 @@ class UsersController < ApplicationController
     reset_session
     self.current_user = @user
     flash[:notice] = "Thanks for joining. You're now logged in."
-    redirect_to root_path
+    redirect_to :controller => 'dashboard', :action => 'show'
   end
   
   def upgrade

@@ -15,12 +15,16 @@ class ApplicationController < ActionController::Base
     end
 
     #before_filter :session_expiry, :login_required, :is_verified?
-    helper_method  :logged_in?, :is_verified?, :current_user, :verification_link #,:can_modify
+    helper_method  :session_expiry, :logged_in?, :is_verified?, :current_user, :verification_link #,:can_modify
 
     # Assumes a user is logged in
     #def can_modify?(mod_val)
     #  (current_user.mod & mod_val) != 0
     #end
+    
+    def redirect_if_auth
+      redirect_to :controller => 'dashboard', :action => 'show' if logged_in?
+    end
 
     ## Timeout after inactivity of 1/2 hour.
     MAX_SESSION_PERIOD = 1800
@@ -72,7 +76,7 @@ class ApplicationController < ActionController::Base
         unless authorized?
           flash[:notice] = 'You must be logged in to do that.'
           access_denied
-  #        redirect_to :controller => 'home', :action => 'index' 
+          #redirect_to :controller => 'home', :action => 'index' 
         end
       end
 

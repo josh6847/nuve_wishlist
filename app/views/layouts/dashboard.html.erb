@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>The Butler by laNuve</title>
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="description" content="The Butler interfaces with the mobile application from la nuve" />
+	<meta name="keywords" content="The Butler La Nuve Web Mobile" />
+	<%= stylesheet_link_tag 'screen' %>
+	<%= javascript_include_tag 'countdown', 'swfobject', 'viewer', 'jquery-1.3.2.min', 'jquery-ui-1.7.2.custom.min' %>
+	<!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
+	<script type="text/javascript" charset="utf-8">
+		$j = jQuery.noConflict();
+		$j(document).ready(function(){
+		        $j("#qsearch").click(function() {
+						                $j(this).attr("value","");
+						        });
+						
+		    });
+		
+	</script>
+</head>
+
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header -->
+	<div id="header">			
+		<h1 id="logo-text"><a href="/" title="The Butler Home">The Butler</a></h1>		
+		<p id="slogan">Delivering your desires</p>		
+		
+		<div  id="nav">
+			<ul>
+				<%= @wishlist ? '<li id="current">' : '<li>' %><a href="/dashboard/show">Wishlist</a></li>
+				<%= @search ? '<li id="current">' : '<li>' %><a href="/dashboard/search">Search</a></li>
+				<%= @deals ? '<li id="current">' : '<li>' %><a href="/dashboard/deals">Hot Deals</a></li>
+			</ul>		
+		</div>		
+		
+		<p id="login_message">Welcome, <%= current_user.login %></p><p id="logout"><%= link_to 'logout', logout_path, :class => 'logout' %></p>			
+		
+		<form id="quick-search" action="/dashboard/search" >
+			<p>
+			<label for="qsearch">Search:</label>
+			<input class="tbox" id="qsearch" type="text" name="qsearch" value="Search..." title="Start typing and hit ENTER" />
+			<input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="/images/search.png" />
+			</p>
+		</form>
+	<!-- /header -->					
+	</div>
+		
+	<!-- content -->
+	<div id="content-wrap" class="clear">
+		<div id="content">		
+		 	<!-- main -->
+			<div id="main">	
+				<%= yield %>
+			</div>		
+			<!-- sidebar -->
+			<div id="sidebar">
+
+				<div class="sidemenu">	
+					<h3>Sidebar Menu</h3>
+					<ul>				
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Search</a></li>
+						<li><a href="#">Hot Deals</a></li>
+						<li><a href="#">Other Nuve Apps</a></li>
+					</ul>	
+				</div>
+
+				<div class="sidemenu">
+					<h3>Sponsors</h3>
+					<ul>
+						<li><a href="#">Lorem ipsum</a><span>Your Choice for Site Templates, Wordpress, Joomla and CMS Themes</span></li>
+						<li><a href="#">Sit amet</a><span>Low Cost Hi-Quality Web Applications</span></li>
+						<li><a href="#">Nunc eu ipsum</a><span>Delivering the best programmers ever!</span></li>
+					</ul>
+				</div>
+
+				</div>
+			
+		<!-- /content -->	
+		</div>				
+	<!-- /content-wrap -->	
+	</div>	
+<!-- /wrap -->
+</div>
+
+<!-- footer -->	
+<div id="footer">	
+	<!-- footer-outer -->	
+	<div id="footer-outer" class="clear"><div id="footer-wrap">
+		<div class="col-b">
+			<h3>Contact Info</h3>
+			<p>
+				<strong>Phone: </strong>+512-300-7563<br/>
+				<strong>Email: </strong>butler@lanuve.com<br/>
+				<strong><i>Austin, TX</i></strong>				
+		<!-- /footer-bottom -->		
+		</div>
+	<!-- /footer-outer -->		
+	</div></div>		
+<!-- /footer -->
+</div>
+
+</body>
+</html>
