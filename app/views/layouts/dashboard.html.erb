@@ -45,6 +45,10 @@
 			<input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="/images/search.png" />
 			</p>
 		</form>
+		
+		<% unless flash[:notice].blank? %>
+			<p style="position:absolute;right:300px" class="no-border"><strong><%= flash[:notice]%></strong></p>
+		<% end %>
 	<!-- /header -->					
 	</div>
 		

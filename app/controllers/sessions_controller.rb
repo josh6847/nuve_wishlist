@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
         redirect_to :controller => 'dashboard', :action => 'show'
-        flash[:notice] = "Welcome back."
+        #flash[:notice] = "Welcome back."
       else
         flash[:notice] = "You must verify your account before logging in.  Please check your email."
         redirect_back_or_default('/')
