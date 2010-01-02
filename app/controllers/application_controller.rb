@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     #end
     
     def redirect_if_auth
-      redirect_to :controller => 'dashboard', :action => 'show' if logged_in?
+      redirect_to :controller => 'dashboard', :action => 'wishlist' if logged_in?
     end
 
     ## Timeout after inactivity of 1/2 hour.

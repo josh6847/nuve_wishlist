@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'
   
-  map.resource :dashboard
+  #map.connect '/dashboard', :controller => 'dashboard', :action => 'wishlist'
+  
   map.resource :session
 
   # Sample of regular route:

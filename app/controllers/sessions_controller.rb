@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         self.current_user = user
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
-        redirect_to :controller => 'dashboard', :action => 'show'
+        redirect_to :controller => 'dashboard', :action => 'wishlist'
         #flash[:notice] = "Welcome back."
       else
         flash[:notice] = "You must verify your account before logging in.  Please check your email."

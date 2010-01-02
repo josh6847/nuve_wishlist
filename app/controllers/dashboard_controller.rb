@@ -2,9 +2,12 @@ class DashboardController < ApplicationController
   layout 'dashboard'
   before_filter :session_expiry, :login_required, :is_verified?
 
-  def index; end
+  def index 
+    @wishlist = true
+    render :action => 'wishlist'
+  end
 
-  def show
+  def wishlist
     @wishlist = true
   end
   
@@ -15,7 +18,9 @@ class DashboardController < ApplicationController
   def deals
     @deals = true
   end
-
-  def edit; end
+  
+  def method_missing *args
+    render :action => 'wishlist'
+  end
 
 end
