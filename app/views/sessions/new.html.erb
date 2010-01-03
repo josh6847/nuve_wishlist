@@ -1,21 +1,17 @@
 <% form_tag session_path, :class => 'login_form' do -%>
-				
 	<% if flash[:notice].blank? %>
 		<p class="no-border"><strong>Please enter credentials</strong></p>
 	<% else %>
 		<p class="no-border"><strong><%= flash[:notice]%></strong></p>
 	<% end %>
-
 	<p>	
 		<label for="login">Your username</label><br />
 		<%= text_field_tag 'login', @login, :tab_index => 2 %>
 	</p>
-
 	<p>
 		<label for="password">Your password</label><br />
 		<%= password_field_tag 'password', nil %>		
 	</p>	
-
 	<p class="no-border">
 		<input class="button" type="submit" value="Submit" tabindex="5" />
 		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -23,5 +19,4 @@
 		<%= label_tag 'remember_me', 'Remember me'%> 
 		<span class="float-right">Not registered? &nbsp;&nbsp;<%= link_to 'Sign up!', signup_path %></span>
 	</p>
-	
 <% end %>

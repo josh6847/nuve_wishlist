@@ -10,13 +10,12 @@
 	<!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
 	<script type="text/javascript" charset="utf-8">
 		$j = jQuery.noConflict();
+		/* clears search box when clicked - needs some additional logic */
 		$j(document).ready(function(){
-		        $j("#qsearch").click(function() {
-						                $j(this).attr("value","");
-						        });
-						
-		    });
-		
+			$j("#qsearch").click(function() {
+				$j(this).attr("value","");
+			});
+		});
 	</script>
 </head>
 
@@ -27,7 +26,6 @@
 	<div id="header">			
 		<h1 id="logo-text"><a href="/" title="The Butler Home">The Butler</a></h1>		
 		<p id="slogan">Delivering your desires</p>		
-		
 		<div  id="nav">
 			<ul>
 				<%= @wishlist ? '<li id="current">' : '<li>' %><a href="/dashboard/wishlist">Wishlist</a></li>
@@ -52,16 +50,17 @@
 	<!-- /header -->					
 	</div>
 		
-	<!-- content -->
+	<!-- content-wrap -->
 	<div id="content-wrap" class="clear">
+		<!-- content -->
 		<div id="content">		
 		 	<!-- main -->
 			<div id="main">	
 				<%= yield %>
 			</div>		
+			<!-- /main -->
 			<!-- sidebar -->
 			<div id="sidebar">
-
 				<div class="sidemenu">	
 					<h3>Sidebar Menu</h3>
 					<ul>				
@@ -71,7 +70,6 @@
 						<li><a href="#">Other Nuve Apps</a></li>
 					</ul>	
 				</div>
-
 				<div class="sidemenu">
 					<h3>Sponsors</h3>
 					<ul>
@@ -80,9 +78,8 @@
 						<li><a href="#">Nunc eu ipsum</a><span>Delivering the best programmers ever!</span></li>
 					</ul>
 				</div>
-
-				</div>
-			
+			<!-- sidebar -->
+			</div>
 		<!-- /content -->	
 		</div>				
 	<!-- /content-wrap -->	
@@ -92,17 +89,18 @@
 
 <!-- footer -->	
 <div id="footer">	
-	<!-- footer-outer -->	
+	<!-- footer-outer, wrap -->	
 	<div id="footer-outer" class="clear"><div id="footer-wrap">
 		<div class="col-b">
 			<h3>Contact Info</h3>
 			<p>
 				<strong>Phone: </strong>+512-300-7563<br/>
 				<strong>Email: </strong>butler@lanuve.com<br/>
-				<strong><i>Austin, TX</i></strong>				
+				<strong><i>Austin, TX</i></strong>	
+			</p>			
 		<!-- /footer-bottom -->		
 		</div>
-	<!-- /footer-outer -->		
+	<!-- /footer-outer, wrap -->		
 	</div></div>		
 <!-- /footer -->
 </div>

@@ -3,8 +3,7 @@ class DashboardController < ApplicationController
   before_filter :session_expiry, :login_required, :is_verified?
 
   def index 
-    @wishlist = true
-    render :action => 'wishlist'
+    redirect
   end
 
   def wishlist
@@ -20,8 +19,11 @@ class DashboardController < ApplicationController
   end
   
   def method_missing(*args)
-    @wishlist = true
-    render :action => 'wishlist'
+    redirect
+  end
+  
+  def redirect
+    redirect_to :action => 'wishlist'
   end
 
 end

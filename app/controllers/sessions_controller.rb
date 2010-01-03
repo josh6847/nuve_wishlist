@@ -30,14 +30,12 @@ class SessionsController < ApplicationController
       flash[:notice] = "Username and/or password incorrect.  Please try again."
       redirect_to :action => 'new'
     end
-    
   end
 
   def destroy
     logout_killing_session!
     flash[:notice] = "Thanks for comin by.  Come back soon!"
     redirect_back_or_default('/login')
-    #redirect_to :controller => 'home'
   end
   
   def method_missing *args
@@ -47,7 +45,7 @@ class SessionsController < ApplicationController
 protected
   # Track failed login attempts
   def note_failed_signin
-    flash.now[:error] = "Incorrect login or password."
+    #flash.now[:error] = "Incorrect login or password."
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
 end

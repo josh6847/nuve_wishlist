@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     verified
   end
   
-      # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
+  # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     (u && u.authenticated?(password)) ? u : nil
@@ -127,7 +127,6 @@ class User < ActiveRecord::Base
     def validate
       errors.add_to_base("Password cannot be blank.") if password_hash.blank?
     	_phone = self.phone.gsub(/[^\d]/,"")
-    	debugger
     	unless _phone.length == 10
     	  self.errors.add_to_base("Phone must contain 10 digits")
       else
