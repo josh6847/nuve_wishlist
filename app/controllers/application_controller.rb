@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    #before_filter :session_expiry, :login_required, :is_verified?
+    before_filter :session_expiry, :login_required, :is_verified? 
     helper_method  :session_expiry, :logged_in?, :is_verified?, :current_user, :verification_link #,:can_modify
 
     # Assumes a user is logged in
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     #end
     
     def redirect_if_auth
-      redirect_to :controller => 'dashboard', :action => 'wishlist' if logged_in?
+      redirect_to :controller => 'dashboard' if logged_in?
     end
 
     ## Timeout after inactivity of 1/2 hour.
@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
         return false
       end
       session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
-      return true
     end
 
     protected
@@ -45,6 +44,7 @@ class ApplicationController < ActionController::Base
         unless (current_user && current_user.is_verified?)
           flash[:error] = 'Account has not been verified. Please check your email.'
           redirect_to :controller => "users", :action => "show", :id => current_user.id
+          return false
         end
       end
 
@@ -75,7 +75,9 @@ class ApplicationController < ActionController::Base
         #flash[:error] ||= 'Login required.' unless authorized? || access_denied
         unless authorized?
           flash[:notice] = 'You must be logged in to do that.'
+          #debugger
           access_denied
+          return false
           #redirect_to :controller => 'home', :action => 'index' 
         end
       end
@@ -92,7 +94,7 @@ class ApplicationController < ActionController::Base
         respond_to do |format|
           format.html do
             store_location
-            redirect_to new_session_path
+            redirect_to login_path
           end
           #format.any(:json, :xml) do
           #  request_http_basic_authentication 'Web Password'

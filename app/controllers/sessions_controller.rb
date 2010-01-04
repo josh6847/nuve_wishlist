@@ -1,7 +1,7 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
   layout 'application'
-  #skip_before_filter :login_required, :is_verified?
+  skip_before_filter :login_required, :is_verified?
   before_filter :redirect_if_auth, :except => ['destroy']
   
   def index; end
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         self.current_user = user
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
-        redirect_to :controller => 'dashboard', :action => 'wishlist'
+        redirect_to :controller => 'dashboard'
         #flash[:notice] = "Welcome back."
       else
         flash[:notice] = "You must verify your account before logging in.  Please check your email."
