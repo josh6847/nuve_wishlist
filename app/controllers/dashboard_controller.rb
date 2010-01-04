@@ -18,9 +18,9 @@ class DashboardController < ApplicationController
     @deals = true
   end
   
-  def method_missing(*args)
-    redirect
-  end
+  #def method_missing(*args)
+  #  redirect
+  #end
   
   def redirect
     redirect_to :action => 'wishlist'
