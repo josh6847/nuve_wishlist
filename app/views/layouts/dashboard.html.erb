@@ -13,7 +13,9 @@
 		/* clears search box when clicked - needs some additional logic */
 		$j(document).ready(function(){
 			$j("#qsearch").click(function() {
-				$j(this).attr("value","");
+				if ($j(this).attr("value") == "Search..."){
+					$j(this).attr("value","");
+				}
 			});
 		});
 	</script>
