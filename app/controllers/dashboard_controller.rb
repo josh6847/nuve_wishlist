@@ -19,7 +19,6 @@ class DashboardController < ApplicationController
   end
   
   def method_missing(*args)
-    debugger
     redirect_to :action => 'index' unless action_name == 'index'
   end
   

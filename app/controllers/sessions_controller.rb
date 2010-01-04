@@ -34,7 +34,8 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_killing_session!
-    flash[:notice] = "Thanks for comin by.  Come back soon!"
+    flash[:notice] = "Thanks for coming by. Come back soon!"
+    #flash[:notice] = (current_user ? "Thanks for comin by.  Come back soon!" : "You are not logged in.")
     redirect_back_or_default('/login')
   end
   

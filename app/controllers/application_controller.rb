@@ -75,10 +75,7 @@ class ApplicationController < ActionController::Base
         #flash[:error] ||= 'Login required.' unless authorized? || access_denied
         unless authorized?
           flash[:notice] = 'You must be logged in to do that.'
-          #debugger
           access_denied
-          return false
-          #redirect_to :controller => 'home', :action => 'index' 
         end
       end
 
