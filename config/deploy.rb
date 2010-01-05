@@ -13,7 +13,6 @@ set :repository, "git@github.com:josh6847/nuve_wishlist.git"
 set :deploy_via, :remote_cache
 set :branch, "master"
 set :git_shallow_clone, 1
-#set :copy_cache, "/home/deployer/apps/all_bout_texas/shared/cached-copy/all_bout_texas/"
 
 # abt
 role :app, "174.143.241.236"
