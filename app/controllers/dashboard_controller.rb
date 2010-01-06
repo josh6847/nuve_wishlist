@@ -3,13 +3,11 @@ class DashboardController < ApplicationController
 
   def index 
     @index = true
-    debugger
     @myitems = @current_user.items
   end
   
   def search
     @search = true
-    debugger
     @items = Item.find(:all, :include => :product)
   end
   
