@@ -1,5 +1,8 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  has_many :wishlists
+  has_many :items, :through => :wishlists
+  
   USER_ACCOUNT_VERIFICATION_TOKEN = "3f9c2bcc50d816dee16552ac5c39cde16908074a"
   
   before_create :normalize_fields, :validate
