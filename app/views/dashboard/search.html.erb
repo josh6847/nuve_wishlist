@@ -6,34 +6,7 @@
 </div>
 
 <ul class="archive">
-	<li>
-		<div class="post-title"><strong><a href="#">Suspendisse bibendum.</a></strong></div>
-		<div class="post-details">Description of product - not available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">Lorem ipsum dolor sit amet.</a></strong></div>
-		<div class="post-details">Description of product - available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">In tristique orci porttitor ipsum.</a></strong></div>
-		<div class="post-details">Description of product - not available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">Donec libero. Suspendisse bibendum.</a></strong></div>
-		<div class="post-details">Description of product - not available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">Donec libero. Suspendisse bibendum.</a></strong></div>
-		<div class="post-details">Description of product - available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">Donec libero. Suspendisse bibendum.</a></strong></div>
-		<div class="post-details">Description of product - available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
-	<li>
-		<div class="post-title"><strong><a href="#">Donec libero. Suspendisse bibendum.</a></strong></div>
-		<div class="post-details">Description of product - available<a href="#"><span class="post-details" style="float:right;margin-right:80px">Add to Wishlist</span></a></div>
-	</li>
+	<%= render :partial => 'dashboard/search_item', :collection => @items, :as => :item %>
 </ul>
 
 <div class="navigation clear">						

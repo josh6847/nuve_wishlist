@@ -749,6 +749,13 @@ ul.archive li .post-details {
 	margin-top: 0;
 	font-size: .9em;	
 }
+ul.archive li .wishlist-link {	
+	margin-left: 0;
+	margin-top: 0;
+	font-size: 1em;	
+	float:right;
+	margin-right:80px
+}
 
 /* pagenavigation */
 .navigation {

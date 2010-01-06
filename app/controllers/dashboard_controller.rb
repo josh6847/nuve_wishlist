@@ -1,17 +1,16 @@
 class DashboardController < ApplicationController
   layout 'dashboard'
-  before_filter :session_expiry, :login_required, :is_verified?
 
   def index 
     @index = true
+    debugger
+    @myitems = @current_user.items
   end
-
-  #def wishlist
-  #  @wishlist = true
-  #end
   
   def search
     @search = true
+    debugger
+    @items = Item.find(:all, :include => :product)
   end
   
   def deals
@@ -21,9 +20,5 @@ class DashboardController < ApplicationController
   def method_missing(*args)
     redirect_to :action => 'index' unless action_name == 'index'
   end
-  
-  #def redirect
-  #  redirect_to :action => 'wishlist'
-  #end
 
 end

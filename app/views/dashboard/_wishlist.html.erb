@@ -1,0 +1,6 @@
+<li>
+	<div class="post-title"><strong><%= myitem.name %></strong></div>
+	<div class="post-details">
+		<%= myitem.description %> - $<%= myitem.product.price %> <span class="post-details"><%= link_to 'Add to Wishlist', {:controller => 'myitems', :action => 'add'}, :class => 'wishlist-link' %></span>
+	</div>
+</li>
