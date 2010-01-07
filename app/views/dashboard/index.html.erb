@@ -6,7 +6,7 @@
 </div>					
 
 <ul class="archive">
-  <% unless @items.nil? %>
+  <% unless @myitems.nil? %>
 		<%= render :partial => 'dashboard/wishlist', :collection => @myitems, :as => :myitem %>		
 	<% end %>
 </ul>

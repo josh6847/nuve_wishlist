@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 
   def index 
     @index = true
+    debugger
     @myitems = @current_user.items
   end
   
