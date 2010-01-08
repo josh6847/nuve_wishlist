@@ -17,18 +17,22 @@ class SessionsController < ApplicationController
         self.current_user = user
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
-        redirect_to :controller => 'dashboard'
+        ajax_redirect_back_or_default(url_for(:controller => 'dashboard'))
+        #redirect_to :controller => 'dashboard'
         #flash[:notice] = "Welcome back."
       else
         flash[:notice] = "You must verify your account before logging in.  Please check your email."
-        redirect_back_or_default('/')
+        ajax_redirect_back_or_default('/')
       end
     else
       note_failed_signin
       @login       = params[:login]
       @remember_me = params[:remember_me]
-      flash[:notice] = "Username and/or password incorrect.  Please try again."
-      redirect_to :action => 'new'
+      flash.now[:notice] = "Username and/or password incorrect.  Please try again."
+      render :update do |page|
+        page.replace_html 'main', :partial => 'new'
+      end
+      #redirect_to :action => 'new'
     end
   end
 

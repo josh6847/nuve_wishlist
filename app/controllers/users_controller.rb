@@ -63,11 +63,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:notice] = 'Thank you for signing up.  You should receive an email shortly.'
-        #format.html { redirect_back_or_default(root_path) }
-        format.html { redirect_to '/' }
+        format.html { ajax_redirect_back_or_default(root_path) }
+        #format.html { redirect_to '/' }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
-        format.html { render :action => "new" }
+        format.html { 
+          render :update do |page|
+            page.replace_html 'main', :partial => 'new'
+          end 
+        }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end

@@ -1,0 +1,38 @@
+<% content_tag :div, :class => 'popup_errors' do %>
+	<ul>
+		<% @user.errors.full_messages.each do |error| %>
+			<li><%= error %></li>
+		<% end  %>
+	</ul>
+<% end unless @user.errors.blank? %>
+<% form_remote_for :user, :url => {:controller => 'users', :action => 'create'}, :html => {:class => 'login_form'} do  %>
+	<% if flash[:notice].blank? %>
+		<p class="no-border"><strong>Please fill out</strong></p>
+	<% else %>
+		<p class="no-border"><strong><%= flash[:notice]%></strong></p>
+	<% end %>
+	<p>	
+		<label for="user_phone">Your phone number</label><br />
+		<%= text_field :user, :phone, :tab_index => 1, :value => @user.phone %>
+	</p>
+	<p>	
+		<label for="user_email">Your email</label><br />
+		<%= text_field :user, :email, :tab_index => 2, :value => @user.email %>
+	</p>
+	<p>	
+		<label for="user_login">Your username</label><br />
+		<%= text_field :user, :login, :tab_index => 3, :value => @user.login %>
+	</p>
+	<p>	
+		<label for="user_password">Your password</label><br />
+		<%= password_field :user, :password, :tab_index => 4 %>
+	</p>
+	<p>	
+		<label for="user_password_confirmation">Your password again</label><br />
+		<%= password_field :user, :password_confirmation, :tab_index => 5 %>
+	</p>
+	<p class="no-border">
+		<%= submit_tag 'Sign up', :class => 'submit', :class => 'button', :tabindex => '5' %> &nbsp;&nbsp;&nbsp;
+		<%= link_to 'Cancel', root_url %>
+	</p>
+<% end %>

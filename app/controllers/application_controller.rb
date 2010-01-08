@@ -112,6 +112,13 @@ class ApplicationController < ActionController::Base
         redirect_to(session[:return_to] || default)
         session[:return_to] = nil
       end
+      
+      def ajax_redirect_back_or_default(default)
+        render :update do |page|
+          page.redirect_to(session[:return_to] || default)
+        end
+        session[:return_to] = nil
+      end
 
       # Inclusion hook to make #current_user and #logged_in?
       # available as ActionView helper methods.

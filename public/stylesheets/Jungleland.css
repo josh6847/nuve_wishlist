@@ -127,7 +127,7 @@ form {
 	border: 1px solid #251a14;
 	background-color: #130d0a;	
 }
-form p {
+form p, form div {
 	border-bottom: 1px solid #221813; 
 	margin: 0;
 	padding: 13px 5px 8px 5px;		
