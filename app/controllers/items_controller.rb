@@ -37,10 +37,33 @@ class ItemsController < ApplicationController
     redirect_index
   end
   
+  def run_pop
+    pop_dummy_data
+  end
+  
   protected
   
   def redirect_index
     redirect_to :controller => 'dashboard'
+  end
+  
+  def pop_dummy_data
+    require 'nokogiri'
+    require 'open-uri'
+    begin
+      page = Nokogiri::HTML(open('http://www.oracle.com/products/product_list.html'))
+      page.css('td.innerBoxContent').each do |td|
+        td.css('ul li').each do |li|
+          content = li.css('a').first.content rescue ""
+          unless content.blank?
+            @item = Item.create(:upc => 999, :name => content, :description => 'Enterprise Stuff')
+            Product.create(:item_id => @item.id, :location_id => 1, :category => 'Enterprise Stuff', :price => 345)
+          end
+        end
+      end
+    rescue
+      # do nothing
+    end
   end
 
 end
