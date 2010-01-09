@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   layout 'dashboard'
   
   def index
-    redirect_index
+    redirect_to :controller => 'dashboard'
   end
 
   def add
@@ -14,10 +14,10 @@ class ItemsController < ApplicationController
       else
         flash[:notice] = "You already have this."
       end
-      redirect_to :controller => 'dashboard', :action => 'search'
+      redirect_to :back
     else
       flash[:notice] = "Invalid option."
-      redirect_index
+      index
     end
   end
   
@@ -26,15 +26,15 @@ class ItemsController < ApplicationController
     unless @wishlist_item.nil?
       @wishlist_item.destroy 
       flash[:notice] = "That item was removed."
-      redirect_to :controller => 'dashboard'
+      redirect_to :back
     else
       flash[:notice] = "Invalid option."
-      redirect_index
+      index
     end
   end
   
   def method_missing *args
-    redirect_index
+    index
   end
   
   def run_pop
@@ -42,10 +42,6 @@ class ItemsController < ApplicationController
   end
   
   protected
-  
-  def redirect_index
-    redirect_to :controller => 'dashboard'
-  end
   
   def pop_dummy_data
     require 'nokogiri'
