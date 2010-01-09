@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
   layout 'application'
-  #before_filter :login_required, :except => [:signup,:register]
-  #before_filter :authorized?, :except => [:signup,:register]
-  #skip_before_filter :is_verified?, :only => [:show,:verify, :signup, :register, :change_password]
   before_filter :check_verification_token, :only => :verify
   skip_before_filter :login_required, :session_expriry, :is_verified?, :only => [:new, :create, :verify]
   

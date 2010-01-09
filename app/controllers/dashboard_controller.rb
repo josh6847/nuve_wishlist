@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
   
   def search
     @search = true
-    @items = Item.paginate(:all, :include => :product, :per_page => 1, :page => params[:page])
+    @items = Item.paginate(:all, :include => :product, :per_page => 7, :page => params[:page])
   end
   
   def deals
