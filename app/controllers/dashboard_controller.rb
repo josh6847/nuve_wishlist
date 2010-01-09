@@ -3,13 +3,12 @@ class DashboardController < ApplicationController
 
   def index 
     @index = true
-    debugger
-    @myitems = @current_user.items
+    @myitems = current_user.items
   end
   
   def search
     @search = true
-    @items = Item.find(:all, :include => :product)
+    @items = Item.paginate(:all, :include => :product, :per_page => 1, :page => params[:page])
   end
   
   def deals
