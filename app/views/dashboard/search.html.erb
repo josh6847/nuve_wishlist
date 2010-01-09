@@ -1,7 +1,5 @@
 <h2>Results</h2>
 <ul class="archive">
-	<!-- Need a cleaner way to do bottom/top pagination -->
 	<%= will_paginate @items %>
 	<%= render :partial => 'dashboard/search_item', :collection => @items, :as => :item %>
-	<%= will_paginate @items %>
 </ul>

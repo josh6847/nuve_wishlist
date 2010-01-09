@@ -22,9 +22,11 @@ class ItemsController < ApplicationController
   end
   
   def destroy
-    @wishlist_item = Wishlist.find(:first, :conditions => {:item_id => params[:id], :user_id => current_user.id}) rescue nil
+    debugger
+    @wishlist_item = current_user.wishlists.find(:first, :conditions => {:item_id => params[:id]}) rescue nil
     unless @wishlist_item.nil?
       @wishlist_item.destroy 
+      #if current_user.items.empty?
       flash[:notice] = "That item was removed."
       redirect_to :back
     else

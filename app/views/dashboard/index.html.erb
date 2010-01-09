@@ -1,11 +1,8 @@
 <h2>Wishlist</h2>			
-
 <ul class="archive">
   <% unless @myitems.empty? %>
-		<!-- Need a cleaner way to do bottom/top pagination -->
 		<%= will_paginate @myitems %>
 		<%= render :partial => 'dashboard/wishlist', :collection => @myitems, :as => :myitem %>		
-		<%= will_paginate @myitems %>
 	<% else %>
 		<p>You currently have no items in your wishlist.</p>
 		<p><%= link_to 'Start searching now! -->', :controller => 'dashboard', :action => 'search' %>
