@@ -1,5 +1,9 @@
 <h2>Results</h2>
+<%= will_paginate @products %>
 <ul class="archive">
-	<%= will_paginate @items %>
-	<%= render :partial => 'dashboard/search_item', :collection => @items, :as => :item %>
+	<% @products.each do |product| %>
+		<li id="search_product_<%= product.id %>" <%= 'class="owned"'if current_user.has_product?(product.id)%>>
+			<%= render :partial => "search_product", :locals => {:product => product} %>
+		</li>
+	<% end %>
 </ul>

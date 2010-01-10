@@ -1,10 +1,9 @@
 class CreateProducts < ActiveRecord::Migration
   def self.up
     create_table :products do |t|
-      t.string :category
-      t.float :price
-      t.integer :location_id
-      t.integer :item_id
+      t.text      :tags
+      t.string    :name
+      t.string    :upc
       t.timestamps
     end
   end

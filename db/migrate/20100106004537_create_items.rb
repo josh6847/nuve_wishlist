@@ -1,10 +1,10 @@
 class CreateItems < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
-      t.string :upc
-      t.string :name,               :null => false
-      t.string :description
-      t.string :tags
+      t.float   :desired_price
+      t.text    :description
+      t.integer :product_id
+      t.integer :wishlist_id
       t.timestamps
     end
   end

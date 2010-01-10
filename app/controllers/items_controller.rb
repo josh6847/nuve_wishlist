@@ -2,35 +2,33 @@ class ItemsController < ApplicationController
   layout 'dashboard'
   
   def index
-    redirect_to :controller => 'dashboard'
+    redirect_to home_path
   end
-
-  def add
-    @item = Item.find(params[:id]) rescue nil
-    unless @item.nil?
-      @wishlist_item = Wishlist.new :user_id => current_user.id, :item_id => params[:id]
-      if @wishlist_item.save
-        flash[:notice] = "That item was added."
-      else
-        flash[:notice] = "You already have this."
+  
+  def create
+    @wishlist = current_user.wishlists.find(params[:wishlist_id])
+    @product  = Product.find(params[:product_id])
+    @item = @wishlist.items.build(:product_id => @product.id)
+    if @wishlist && @product && @item.save
+      render :update do |page|
+        page.replace_html "search_product_#{@product.id}", :partial => 'dashboard/search_product', :locals => {:product => @product}
+        page << "$j('#search_product_#{@product.id}').addClass('owned');"
       end
-      redirect_to :back
     else
-      flash[:notice] = "Invalid option."
-      index
+      render :nothing => true
     end
   end
   
   def destroy
-    @wishlist_item = current_user.wishlists.find(:first, :conditions => {:item_id => params[:id]}) rescue nil
-    unless @wishlist_item.nil?
-      @wishlist_item.destroy 
-      flash[:notice] = "That item was removed."
-      redirect_to :back
-    else
-      flash[:notice] = "Invalid option."
-      index
-    end
+    current_user.items.find(params[:id]).destroy
+    current_user.reload
+    page = params[:page].to_i
+    params[:page] = page-1 if page != 1 && current_user.items.count <= ((page-1)*Item::PAGINATED_AMOUNT)
+    items = current_user.items.paginate(:all, :include => :product, :per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
+    render_update "user_#{current_user.id}_wishlist", 
+          :partial => 'dashboard/wishlist', 
+          :locals => {
+            :items => items}
   end
   
 end

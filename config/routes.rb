@@ -2,6 +2,10 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.root :controller => 'sessions', :action => 'new'
+  map.home  'home', :controller => 'dashboard', :action => 'index'
+  map.search 'search', :controller => 'dashboard', :action => 'search'
+  map.deals 'deals', :controller => 'dashboard', :action => 'deals'
+  
 
   map.signup 'sign-up', :controller => 'users', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
@@ -50,4 +54,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.connect ':action', :controller => 'dashboard'
 end

@@ -15,7 +15,12 @@ class User < ActiveRecord::Base
   attr_accessor :password   # Virtual attribute for the unencrypted password
   
   #verification for validation of user email address: send notifications, etc
-  after_create :send_verification
+  after_create :send_verification, :setup_wishlist
+  
+  def setup_wishlist
+    list = self.wishlists.build
+    list.save
+  end
   
   def normalize(field="", title_case = true)
     return "" if field.blank?
@@ -32,6 +37,11 @@ class User < ActiveRecord::Base
   def display_name(reversed=false)
     return "#{self.last_name}, #{self.first_name}"if reversed
     "#{self.first_name} #{self.last_name.first}"
+  end
+  
+  def has_product? product_id
+    return false unless product_id
+    return !(self.items.find_by_product_id(product_id).nil?)
   end
   
   def is_verified?

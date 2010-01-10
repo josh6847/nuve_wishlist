@@ -745,7 +745,7 @@ ul.archive li {
 	padding: 12px 20px;		
 	border-bottom: 1px solid #29201c;	
 	list-style: none;
-	background: url(/images/bullet.gif) no-repeat 0 14px;
+	/*background: url(/images/bullet.gif) no-repeat 0 14px;*/
 }
 ul.archive li .post-title {
 	margin: 0;	padding: 0;
@@ -770,7 +770,9 @@ ul.archive li .wishlist-link {
 	float:right;
 	margin-right:80px
 }
-
+li.owned {
+	background: url(/images/bullet.gif) no-repeat 0 14px;
+}
 /* pagenavigation */
 .navigation {
 	margin: 10px 20px; padding: 0;

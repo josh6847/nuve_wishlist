@@ -23,7 +23,10 @@ class ApplicationController < ActionController::Base
   #end
   
   def redirect_if_auth
-    redirect_to :controller => 'dashboard' if logged_in?
+    if logged_in?
+      redirect_to home_path 
+      return
+    end
   end
   
   ## Timeout after inactivity of 1/2 hour.
@@ -33,7 +36,7 @@ class ApplicationController < ActionController::Base
     if logged_in? and session[:expiry_time] and session[:expiry_time] < Time.now
       reset_session
       flash[:error] = "Session expired. Please login again."
-      redirect_to(new_session_path)
+      redirect_to(login_path)
       return false
     end
     session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
@@ -44,7 +47,7 @@ class ApplicationController < ActionController::Base
     def is_verified?
       unless (current_user && current_user.is_verified?)
         flash[:error] = 'Account has not been verified. Please check your email.'
-        redirect_to :controller => "users", :action => "show", :id => current_user.id
+        redirect_to login_path
         return false
       end
     end
@@ -112,6 +115,26 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+    
+    def ajax_redirect_back_or_default(default)
+      render :update do |page|
+        page.redirect_to(session[:return_to] || default)
+      end
+      session[:return_to] = nil
+    end
+    
+    def ajax_redirect(options={})
+      render :update do |page|
+        page.redirect_to(options)
+      end
+    end
+    
+    def render_update(id="",options={})
+      render(:nothing => true) && return if id.blank?
+      render :update do |page|
+        page.replace_html id, options
+      end
     end
   
     # Inclusion hook to make #current_user and #logged_in?

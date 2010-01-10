@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'application'
   before_filter :check_verification_token, :only => :verify
-  skip_before_filter :login_required, :session_expriry, :is_verified?, :only => [:new, :create, :verify]
+  skip_before_filter :login_required, :is_verified?, :session_expiry, :only => ['new', 'create', 'destroy']
   
   def index
     @users = User.all
@@ -61,7 +61,6 @@ class UsersController < ApplicationController
       if @user.save
         flash[:notice] = 'Thank you for signing up.  You should receive an email shortly.'
         format.html { ajax_redirect_back_or_default(root_path) }
-        #format.html { redirect_to '/' }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { 
@@ -99,12 +98,17 @@ class UsersController < ApplicationController
   end
   
   def verify
-    @user.verified = true
-    @user.save(false)
-    reset_session
-    self.current_user = @user
-    flash[:notice] = "Thanks for joining. You're logged in."
-    redirect_to :controller => 'dashboard', :action => 'index'
+    if @user.is_verified?
+      flash[:notice] = "This user account has already been verified.  Please log in."
+      redirect_to login_path
+    else
+      @user.verified = true
+      @user.save(false)
+      reset_session
+      self.current_user = @user
+      flash[:notice] = "Thanks for joining. You're logged in."
+      redirect_to home_path
+    end
   end
   
   def upgrade

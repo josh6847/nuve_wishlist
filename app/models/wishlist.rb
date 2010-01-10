@@ -1,6 +1,5 @@
 class Wishlist < ActiveRecord::Base
   belongs_to :user
-  belongs_to :item
+  has_many :items, :dependent => :destroy
   
-  validates_uniqueness_of :item_id
 end

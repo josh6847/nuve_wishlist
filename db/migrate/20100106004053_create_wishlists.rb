@@ -1,10 +1,10 @@
 class CreateWishlists < ActiveRecord::Migration
   def self.up
     create_table :wishlists do |t|
-      t.string :description
+      t.string  :name
+      t.text    :description
       t.boolean :active
       t.integer :user_id
-      t.integer :item_id
       t.timestamps
     end
   end

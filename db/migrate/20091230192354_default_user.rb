@@ -3,8 +3,9 @@ class DefaultUser < ActiveRecord::Migration
     user = User.new :first_name => 'root', :last_name => 'user', :email => 'admin@lanuve.com'
     user.login = 'root'
     user.phone='1234567890'
-    user.password = 'root'
-    user.password_confirmation = 'root'
+    user.password = 'nuve4Udude'
+    user.password_confirmation = 'nuve4Udude'
+    user.verified = true
     user.save
   end
 

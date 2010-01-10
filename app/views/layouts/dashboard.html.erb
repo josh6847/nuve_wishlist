@@ -6,7 +6,7 @@
 	<meta name="description" content="The Butler interfaces with the mobile application from la nuve" />
 	<meta name="keywords" content="The Butler La Nuve Web Mobile" />
 	<%= stylesheet_link_tag 'screen' %>
-	<%= javascript_include_tag 'countdown', 'swfobject', 'viewer', 'jquery-1.3.2.min', 'jquery-ui-1.7.2.custom.min' %>
+	<%= javascript_include_tag :defaults, 'countdown', 'swfobject', 'viewer', 'jquery-1.3.2.min', 'jquery-ui-1.7.2.custom.min' %>
 	<!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
 	<script type="text/javascript" charset="utf-8">
 		$j = jQuery.noConflict();
@@ -30,13 +30,21 @@
 		<p id="slogan">Delivering your desires</p>		
 		<div  id="nav">
 			<ul>
-				<%= @index ? '<li id="current">' : '<li>' %><a href="/dashboard">Wishlist</a></li>
-				<%= @search ? '<li id="current">' : '<li>' %><a href="/dashboard/search">Search</a></li>
-				<%= @deals ? '<li id="current">' : '<li>' %><a href="/dashboard/deals">Hot Deals</a></li>
+				<li <%= 'id="current"' if @index %>>
+					<%= link_to 'Home', home_path %>
+				</li>
+				<li <%= 'id="current"' if @search %>>
+					<%= link_to 'Search', search_path %>
+				</li>
+				<li <%= 'id="current"' if @deals %>>
+					<%= link_to 'Hot Deals', deals_path %>
+				</li>
 			</ul>		
+			<p id="login_message">Welcome, <%= current_user.login %></p>
+			<p id="logout"><%= link_to 'logout', logout_path, :class => 'logout' %></p>
 		</div>		
 		
-		<p id="login_message">Welcome, <%= current_user.login %></p><p id="logout"><%= link_to 'logout', logout_path, :class => 'logout' %></p>			
+		
 		
 		<form id="quick-search" action="/dashboard/search" >
 			<p>
@@ -66,19 +74,13 @@
 				<div class="sidemenu">	
 					<h3>Sidebar Menu</h3>
 					<ul>				
-						<li><a href="/dashboard">Home</a></li>
-						<li><a href="/dashboard/search">Search</a></li>
-						<li><a href="/dashboard/deals">Hot Deals</a></li>
+						<li><%= link_to 'Home', home_path %></li>
+						<li><%= link_to 'Search', search_path %></li>
+						<li><%= link_to 'Deals', deals_path %></li>
 						<li><a href="http://lanuve.com" target="_blank">Other Nuve Apps</a></li>
 					</ul>	
 				</div>
-				<div class="sidemenu">
-					<h3>Sponsors</h3>
-					<ul>
-						<li><a href="#">Lorem ipsum</a><span>Your Choice for Site Templates, Wordpress, Joomla and CMS Themes</span></li>
-						<li><a href="#">Sit amet</a><span>Low Cost Hi-Quality Web Applications</span></li>
-						<li><a href="#">Nunc eu ipsum</a><span>Delivering the best programmers ever!</span></li>
-					</ul>
+				<div style="height:300px">
 				</div>
 			<!-- sidebar -->
 			</div>

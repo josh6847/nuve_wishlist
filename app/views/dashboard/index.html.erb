@@ -1,10 +1,10 @@
 <h2>Wishlist</h2>			
-<ul class="archive">
-  <% unless @myitems.empty? %>
-		<%= will_paginate @myitems %>
-		<%= render :partial => 'dashboard/wishlist', :collection => @myitems, :as => :myitem %>		
-	<% else %>
-		<p>You currently have no items in your wishlist.</p>
-		<p><%= link_to 'Start searching now! -->', :controller => 'dashboard', :action => 'search' %>
-	<% end %>
-</ul>
+
+ <% if @myitems.empty? %>
+	<p>You currently have no items in your wishlist.</p>
+	<p><%= link_to 'Start searching now! -->', search_path %>
+<% else %>
+	<div id="user_<%=current_user.id%>_wishlist">
+		<%= render :partial => "wishlist", :locals => {:items => @myitems}%>
+	</div>
+<% end %>
