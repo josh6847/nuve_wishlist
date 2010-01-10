@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  before_filter :session_expiry, :login_required, :is_verified? 
+  before_filter :session_expiry, :login_required, :is_verified?
   helper_method  :session_expiry, :logged_in?, :is_verified?, :current_user, :verification_link #,:can_modify
   
   # Assumes a user is logged in

@@ -1,7 +1,7 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
   layout 'application'
-  skip_before_filter :login_required, :is_verified?
+  skip_before_filter :login_required, :is_verified?, :session_expiry
   before_filter :redirect_if_auth, :except => ['destroy']
   
   def index; end
