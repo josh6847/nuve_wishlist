@@ -18,8 +18,7 @@ class User < ActiveRecord::Base
   after_create :send_verification, :setup_wishlist
   
   def setup_wishlist
-    list = self.wishlists.build
-    list.save
+    Wishlist.create :user_id => self.id
   end
   
   def normalize(field="", title_case = true)
