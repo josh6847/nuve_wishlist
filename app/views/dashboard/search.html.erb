@@ -1,15 +1,5 @@
-<h2><a href="#">Results</a></h2>
-
-<div class="navigation clear">						
-	<div><a href="#" >&laquo; Older Entries</a></div>
-	<div><a href="#" >Newer Entries &raquo; </a></div>												
-</div>
-
+<h2>Results</h2>
 <ul class="archive">
+	<%= will_paginate @items %>
 	<%= render :partial => 'dashboard/search_item', :collection => @items, :as => :item %>
 </ul>
-
-<div class="navigation clear">						
-	<div><a href="#" >&laquo; Older Entries</a></div>
-	<div><a href="#" >Newer Entries &raquo; </a></div>												
-</div>

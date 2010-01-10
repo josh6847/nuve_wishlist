@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   attr_accessor :password   # Virtual attribute for the unencrypted password
   
   #verification for validation of user email address: send notifications, etc
-  #after_create :send_verification
+  after_create :send_verification
   
   def normalize(field="", title_case = true)
     return "" if field.blank?

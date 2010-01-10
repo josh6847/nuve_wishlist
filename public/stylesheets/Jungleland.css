@@ -229,6 +229,20 @@ input.button {
 	padding: 0 0 0 30px;
 }
 
+#header #notice {
+	border:none;
+	position:absolute;
+	right: 375px;
+	top: 14px;
+	color:white;
+	background-color: transparent;
+	display: inline;
+	border:2px dashed #897876; /* #853E12 */
+	padding:3px;
+}
+
+
+
 #header #logout {
 	position: absolute;
 	right: 5px; top: 18px;			

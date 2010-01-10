@@ -1,17 +1,10 @@
-<h2><a href="#">Wishlist</a></h2>
-	
-<div class="navigation clear">						
-	<div><a href="#" >&laquo; Older Entries</a></div>
-	<div><a href="#" >Newer Entries &raquo; </a></div>												
-</div>					
-
+<h2>Wishlist</h2>			
 <ul class="archive">
-  <% unless @myitems.nil? %>
+  <% unless @myitems.empty? %>
+		<%= will_paginate @myitems %>
 		<%= render :partial => 'dashboard/wishlist', :collection => @myitems, :as => :myitem %>		
+	<% else %>
+		<p>You currently have no items in your wishlist.</p>
+		<p><%= link_to 'Start searching now! -->', :controller => 'dashboard', :action => 'search' %>
 	<% end %>
 </ul>
-
-<div class="navigation clear">						
-	<div><a href="#" >&laquo; Older Entries</a></div>
-	<div><a href="#" >Newer Entries &raquo; </a></div>												
-</div>		

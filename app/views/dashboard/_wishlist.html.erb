@@ -1,6 +1,11 @@
-<li>
-	<div class="post-title"><strong><%= myitem.name %></strong></div>
-	<div class="post-details">
-		<%= myitem.description %> - $<%= myitem.product.price %> <span class="post-details"><%= link_to 'Remove', {:controller => 'items', :action => 'destroy', :id => myitem.id}, :class => 'wishlist-link' %></span>
-	</div>
-</li>
+<% unless myitem.product.nil? %>
+	<li>
+		<div class="post-title"><strong><%= myitem.name %></strong></div>
+		<div class="post-details">
+			<%= myitem.description %> - $<%= myitem.product.price %> 
+			<span class="post-details">
+				<%= link_to 'Remove', {:controller => 'items', :action => 'destroy', :id => myitem.id}, :class => 'wishlist-link' %>
+			</span>
+		</div>
+	</li>
+<% end %>
