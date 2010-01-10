@@ -26,7 +26,6 @@ class ItemsController < ApplicationController
     @wishlist_item = current_user.wishlists.find(:first, :conditions => {:item_id => params[:id]}) rescue nil
     unless @wishlist_item.nil?
       @wishlist_item.destroy 
-      #if current_user.items.empty?
       flash[:notice] = "That item was removed."
       redirect_to :back
     else
@@ -38,12 +37,6 @@ class ItemsController < ApplicationController
   def method_missing *args
     index
   end
-  
-  def run_pop
-    pop_dummy_data
-  end
-  
-  protected
   
   def pop_dummy_data
     require 'nokogiri'

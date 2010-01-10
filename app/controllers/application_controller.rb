@@ -202,4 +202,6 @@ class ApplicationController < ActionController::Base
         :value   => @current_user.remember_token,
         :expires => @current_user.remember_token_expires_at }
     end
+    
+    
 end

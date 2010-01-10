@@ -1,5 +1,18 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  
+  def pop_items
+    require 'csv-mapper'
+    include CsvMapper
+    results = import('tmp/items.csv') do
+      start_at_row 1
+      [upc, weight, description]
+    end
+    results.each do |result|
+      p reesult.upc
+    end
+  end
+  
   def breadcrumbs
     @breadcrumbs = "<div id=\"breadcrumbs\">"
     
