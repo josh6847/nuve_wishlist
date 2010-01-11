@@ -1,3 +1,6 @@
+require 'csv'
+require 'csv-mapper'
+include CsvMapper
 class Product < ActiveRecord::Base
   has_many :items
   

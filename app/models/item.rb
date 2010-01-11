@@ -1,7 +1,3 @@
-require 'csv'
-require 'csv-mapper'
-include CsvMapper
-
 class Item < ActiveRecord::Base
   PAGINATED_AMOUNT = 7
   belongs_to :wishlist
