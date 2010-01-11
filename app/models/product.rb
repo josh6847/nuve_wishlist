@@ -1,9 +1,9 @@
 class Product < ActiveRecord::Base
   has_many :items
   
-  validates_uniqueness_of :name, :upc
+  validates_uniqueness_of :upc
   
-  def self.pop_items
+  def self.pop_products
     p "Beginning processing CSV file"
     i = 1
     start = Time.now
