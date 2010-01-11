@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   has_many :items
   
   validates_uniqueness_of :upc
+  serialize :tags, Array
   
   def self.pop_products
     p "Beginning processing CSV file"
