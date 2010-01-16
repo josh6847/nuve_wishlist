@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
   
   def search
     @search = true
-    @query = Product.find_by_sql 'SELECT * FROM products ORDER BY id DESC LIMIT 5000'
+    @query = Product.find_by_sql 'SELECT * FROM products ORDER BY id DESC LIMIT 500'
     @products = Product.paginate(@query, :per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
   end
   
