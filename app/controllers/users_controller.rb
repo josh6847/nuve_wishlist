@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'application'
   before_filter :check_verification_token, :only => :verify
-  skip_before_filter :login_required, :is_verified?, :session_expiry, :only => ['new', 'create', 'destroy']
+  skip_before_filter :login_required, :is_verified?, :session_expiry, :only => ['new', 'create', 'destroy','verify']
   
   def index
     @users = User.all
