@@ -98,13 +98,13 @@ class UsersController < ApplicationController
   end
   
   def verify
+    reset_session
     if @user.is_verified?
       flash[:notice] = "This user account has already been verified.  Please log in."
       redirect_to login_path
     else
       @user.verified = true
       @user.save(false)
-      reset_session
       self.current_user = @user
       flash[:notice] = "Thanks for joining. You're logged in."
       redirect_to home_path
