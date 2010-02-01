@@ -1,12 +1,24 @@
 class WishlistsController < ApplicationController
   layout 'dashboard'
+  before_filter 'show', :only => [:update_wishlist]
   def index
     @index = true
     @wishlists = current_user.wishlists
   end
   
   def show
-    @wishlist = current_user.wishlists.find params[:id]
+    @wishlist ||= current_user.wishlists.find params[:id]
+    @myitems = @wishlist.items(:include => :product).paginate( :per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
+  end
+  
+  def update_wishlist
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          page.replace_html "show_wishlist", :partial => 'show'
+        end # render
+      end # format
+    end # respond_to
   end
   
   def create
@@ -29,5 +41,20 @@ class WishlistsController < ApplicationController
         page << %^$j('#wishlist_error').html('A wishlist must have a name')^
       end
     end
+  end
+  
+  def destroy_item
+    item = current_user.items.find(params[:id])
+    @wishlist = item.wishlist
+    item.destroy
+    @wishlist.reload
+    show
+    page = params[:page].to_i
+    params[:page] = page-1 if page != 1 && @wishlist.items.count <= ((page-1)*Item::PAGINATED_AMOUNT)
+    
+    render :update do |page|
+      page.replace_html "show_wishlist", :partial => 'show'
+    end
+#    render_update "wishlist_#{@wishlist.id}", :action => 'show'
   end
 end

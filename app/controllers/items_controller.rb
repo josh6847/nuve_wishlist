@@ -20,12 +20,14 @@ class ItemsController < ApplicationController
   end
   
   def destroy
-    current_user.items.find(params[:id]).destroy
+    item = current_user.items.find(params[:id])
+    wishlist_id = item.wishlist_id
+    item.destroy
     current_user.reload
     page = params[:page].to_i
     params[:page] = page-1 if page != 1 && current_user.items.count <= ((page-1)*Item::PAGINATED_AMOUNT)
-    items = current_user.items.paginate(:all, :include => :product, :per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
-    render_update "user_#{current_user.id}_wishlist", 
+    items = current_user.items(:include => :product).paginate(:per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
+    render_update "wishlist_#{wishlist_id}", 
           :partial => 'dashboard/wishlist', 
           :locals => {
             :items => items}

@@ -527,7 +527,7 @@ input.button,a.button {
 	
 }
 .sidemenu ul li.current {
-	background: url(/images/bullet.gif) no-repeat 0 14px;
+	background: url(/images/bullet.gif) no-repeat 3px 14px;
 }
 .sidemenu ul li a:link, 
 .sidemenu ul li a:visited {

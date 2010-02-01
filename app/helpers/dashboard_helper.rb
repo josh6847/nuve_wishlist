@@ -31,8 +31,8 @@ module DashboardHelper
     		UPC: #{item.product.upc}
     		<span class="post-details" style="display:inline">
     			#{link_to_remote 'Remove', :url => {
-    			        :controller => 'items', 
-    			        :action => 'destroy', 
+    			        :controller => 'wishlists', 
+    			        :action => 'destroy_item', 
     			        :id => item.id,
     			        :page => params[:page]},
     			      :confirm => "Are you sure you'd like to remove #{item.product.name}?", 

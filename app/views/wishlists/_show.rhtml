@@ -1,0 +1,17 @@
+<% if @myitems.size.zero? %>
+	<h3>There are no items on this wishlist</h3>
+<% else %>
+<%= will_paginate @myitems, 
+									{:remote => true, 
+									 :params => {
+											:page => params[:page],
+											:action => 'update_wishlist'}} %>
+
+	<% content_tag :ul, :class => 'archive' do %>
+		<% @myitems.each do |item|%>
+			<li class="owned">
+				<%= list_item item %>
+			</li>
+		<% end %>
+	<% end %>
+<% end %>

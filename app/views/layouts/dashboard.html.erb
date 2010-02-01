@@ -69,7 +69,7 @@
 			<!-- sidebar -->
 			<div id="sidebar">
 				<div class="sidemenu">	
-					<h3 id="wishlist_count" style="display:inline"><%= current_user.wishlist_heading %></h3>
+					<h3 id="wishlist_count" style="display:inline"><%= link_to current_user.wishlist_heading, home_path %></h3>
 					<%= link_to_function 'New', "$j('#new_wishlist_form').show();$j(this).hide();$j('#cancel_new_wishlist').show();$j('#new_wishlist_form input#wishlist_name').val('')", 
 																:class => 'button', :id => 'new_wishlist_button' %>
 					<%= link_to_function 'Cancel', "$j('#new_wishlist_form').hide();$j(this).hide();$j('#new_wishlist_button').show();$j('#wishlist_error').html('')", 
