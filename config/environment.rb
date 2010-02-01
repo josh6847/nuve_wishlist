@@ -15,7 +15,7 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+#  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
@@ -53,4 +53,4 @@ ActionMailer::Base.default_charset = "iso-8859-1"
 
 REST_AUTH_SITE_KEY = "02e94b9720a805b7682796b8e9edb73a0b2f2da6"
 
-require 'will_paginate'
+#require 'will_paginate'

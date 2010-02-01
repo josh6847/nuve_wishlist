@@ -1,0 +1,13 @@
+<% current ||= false%>
+<li <%= 'class="current"'if current %>>
+	<%= link_to(list.name, :controller => 'wishlists', :action => 'show', :id => list.id)%>
+	<span class="post-details" style="display:inline">
+		<%=link_to_remote 'X', :url => {
+		        :controller => 'wishlists', 
+		        :action => 'destroy', 
+		        :id => list.id},
+		      :confirm => "Are you sure you'd like to remove #{list.name}?", 
+		      :html => {:class => 'wishlist-link right'}
+		  %>
+	</span>
+</li>

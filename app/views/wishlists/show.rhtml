@@ -1,0 +1,12 @@
+<h2><%= @wishlist.name %></h2>
+<% if @wishlist.items.count.zero? %>
+	<h3>There are no items on this wishlist</h3>
+<% else %>
+	<% content_tag :ul, :class => 'archive' do %>
+		<% @wishlist.items.each do |item|%>
+			<li class="owned">
+				<%= list_item item %>
+			</li>
+		<% end %>
+	<% end %>
+<% end %>

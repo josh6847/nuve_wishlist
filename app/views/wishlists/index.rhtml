@@ -1,0 +1,9 @@
+<h2><%= "#{current_user.login}'s Wishlists"%></h2>
+<p>
+	All of your wishlists are listed below. Click 'New' to the right to create a list.
+</p>
+<ul class="archive" id="wishlists_main">
+	<% @wishlists.each do |list|%>
+		<%= render :partial => "li_main", :locals => {:list => list}%>
+	<% end %>
+</ul>

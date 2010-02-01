@@ -1,7 +1,6 @@
 require 'csv'
-require 'csv-mapper'
-include CsvMapper
 class Product < ActiveRecord::Base
+  PAGINATED_AMOUNT = 25
   has_many :items
   
   validates_uniqueness_of :upc
@@ -13,7 +12,7 @@ class Product < ActiveRecord::Base
     start = Time.now
     CSV.open("tmp/items.csv","r") do |result|
       Product.create :upc => result[0], :name => result[2]
-      p "Added #{i} products after #{Time.now-start} seconds" if i%1000 == 0
+      p "Added #{i} products after #{Time.now-start} seconds" if (i%1000).zero?
       i+=1
     end
     p "Total time was #{(Time.now-start)/60} minutes"
@@ -27,9 +26,7 @@ class Product < ActiveRecord::Base
       page.css('td.innerBoxContent').each do |td|
         td.css('ul li').each do |li|
           content = li.css('a').first.content rescue ""
-          unless content.blank?
-            @item = Product.create(:upc => rand(1<<51), :name => content)
-          end
+          Product.create(:upc => rand(1<<51), :name => content) unless content.blank? 
         end
       end
     rescue

@@ -1,9 +1,4 @@
-<h2>Results</h2>
-<%= will_paginate @products %>
-<ul class="archive">
-	<% @products.each do |product| %>
-		<li id="search_product_<%= product.id %>" <%= 'class="owned"'if current_user.has_product?(product.id)%>>
-			<%= render :partial => "search_product", :locals => {:product => product} %>
-		</li>
-	<% end %>
-</ul>
+<h2><%= params[:query].blank? ? "Browse" : "#{@product_count} Results" %> </h2>
+<div id="products">
+	<%= render :partial => "results" %>
+</div>

@@ -13,11 +13,7 @@ module DashboardHelper
   end
   def add_to_link product_id
     if current_user.has_product? product_id
-      %^
-        <span class="wishlist-link">
-          On wish list
-        </span
-      ^
+      content_tag :span, 'On wish list', :class => 'wishlist-link'
     else
       link_to_remote 'Add to Wishlist', :url => {
   	          :controller => 'items', 
@@ -33,7 +29,7 @@ module DashboardHelper
       <div class="post-title"><strong>#{item.product.name}</strong></div>
     	<div class="post-details">
     		UPC: #{item.product.upc}
-    		<span class="post-details">
+    		<span class="post-details" style="display:inline">
     			#{link_to_remote 'Remove', :url => {
     			        :controller => 'items', 
     			        :action => 'destroy', 

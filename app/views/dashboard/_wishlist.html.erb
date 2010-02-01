@@ -1,6 +1,10 @@
-<%= will_paginate items %>
+<%= will_paginate @myitems, 
+									{:remote => true, 
+									 :params => {
+											:page => params[:page],
+											:action => 'update_index'}} %>
 <ul class="archive">
-	<% items.each do |item| %>
+	<% @myitems.each do |item| %>
 		<li id="list_item_<%= item.id %>" class="owned">
 			<%= list_item(item) %>
 		</li>

@@ -5,6 +5,6 @@
 	<p><%= link_to 'Start searching now! -->', search_path %>
 <% else %>
 	<div id="user_<%=current_user.id%>_wishlist">
-		<%= render :partial => "wishlist", :locals => {:items => @myitems}%>
+		<%= render :partial => "wishlist"%>
 	</div>
 <% end %>

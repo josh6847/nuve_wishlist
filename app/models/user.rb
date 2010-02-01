@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :wishlists
+  has_many :wishlists, :order => 'wishlists.position ASC'
   has_many :items, :through => :wishlists
   
   USER_ACCOUNT_VERIFICATION_TOKEN = "3f9c2bcc50d816dee16552ac5c39cde16908074a"
@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
   def display_name(reversed=false)
     return "#{self.last_name}, #{self.first_name}"if reversed
     "#{self.first_name} #{self.last_name.first}"
+  end
+  
+  def wishlist_heading
+    "(#{self.wishlists.count}) Wishlists &nbsp;&nbsp;"
   end
   
   def has_product? product_id

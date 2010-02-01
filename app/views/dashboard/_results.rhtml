@@ -1,0 +1,23 @@
+<% if @products.empty? %>
+	<h4>There are no results for your search "<%= params[:query] %>"</h4>
+<% else %>
+	<%= will_paginate @products, 
+										{:remote => true, 
+										 :params => {
+												:page => params[:page],
+												:query => params[:query],
+												:action => 'update_search'}} %>
+	<ul class="archive">
+		<% @products.each do |product| %>
+			<li id="search_product_<%= product.id %>" <%= 'class="owned"'if current_user.has_product?(product.id)%>>
+				<%= render :partial => "search_product", :locals => {:product => product} %>
+			</li>
+		<% end %>
+	</ul>
+	<%= will_paginate @products, 
+										{:remote => true, 
+										 :params => {
+												:page => params[:page],
+												:query => params[:query],
+												:action => 'update_search'}} %>
+<% end %>

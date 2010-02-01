@@ -1,0 +1,4 @@
+<li id="list_item_<%= list.id %>">
+	<%= link_to list.name, :action => 'show', :id => list.id %>
+	&nbsp;(<%= list.items.count %>)
+</li>

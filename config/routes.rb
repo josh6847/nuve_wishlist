@@ -2,9 +2,10 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.root :controller => 'sessions', :action => 'new'
-  map.home  'home', :controller => 'dashboard', :action => 'index'
+  map.home  'home', :controller => 'wishlists', :action => 'index'
   map.search 'search', :controller => 'dashboard', :action => 'search'
   map.deals 'deals', :controller => 'dashboard', :action => 'deals'
+  map.resources 'wishlists'
   
 
   map.signup 'sign-up', :controller => 'users', :action => 'new'
