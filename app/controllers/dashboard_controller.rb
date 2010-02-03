@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
   def search
     @search = true
     if params[:query].blank?
-      @products = Product.all.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
+      @products = Product.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     else
       @products = Product.all(:conditions => ["products.name REGEXP ?", params[:query]])
       @product_count = @products.count
