@@ -1,18 +1,18 @@
 module DashboardHelper
   
-  def search_product(product)
+  def search_product(product, has_product=false)
     %^
       <div class="post-title"><strong>#{product.name}</strong></div>
       <div class="post-details">
       	UPC: #{product.upc} 
       	<span class="post-details">
-      	  #{add_to_link(product.id)}
+      	  #{add_to_link(product.id,has_product)}
       	</span>
       </div>
     ^
   end
-  def add_to_link product_id
-    if current_user.has_product? product_id
+  def add_to_link(product_id, has_product=false)
+    if has_product
       content_tag :span, 'On wish list', :class => 'wishlist-link'
     else
       link_to_remote 'Add to Wishlist', :url => {

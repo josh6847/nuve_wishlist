@@ -9,8 +9,9 @@
 												:action => 'update_search'}} %>
 	<ul class="archive">
 		<% @products.each do |product| %>
-			<li id="search_product_<%= product.id %>" <%= 'class="owned"'if current_user.has_product?(product.id)%>>
-				<%= render :partial => "search_product", :locals => {:product => product} %>
+			<% has_product = @user_product_ids.include? product.id %>
+			<li id="search_product_<%= product.id %>" <%= 'class="owned"' if has_product %>>
+				<%= render :partial => "search_product", :locals => {:product => product, :has_product => has_product} %>
 			</li>
 		<% end %>
 	</ul>

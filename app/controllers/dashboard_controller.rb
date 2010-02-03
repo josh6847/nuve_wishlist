@@ -21,10 +21,11 @@ class DashboardController < ApplicationController
   
   def search
     @search = true
+    @user_product_ids = current_user.items.collect(&:product_id)
     if params[:query].blank?
       @products = Product.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     else
-      @products = Product.all(:conditions => ["products.name REGEXP ?", params[:query]])
+      @products = Product.all(:conditions => ["products.name REGEXP ?", params[:query]], :limit => 700)
       @product_count = @products.count
       @products = @products.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     end

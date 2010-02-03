@@ -42,10 +42,10 @@ class User < ActiveRecord::Base
     "(#{self.wishlists.count}) Wishlists &nbsp;&nbsp;"
   end
   
-  def has_product? product_id
-    return false unless product_id
-    return !(self.items.find_by_product_id(product_id).nil?)
-  end
+  #def has_product? product_id
+  #  return false unless product_id
+  #  return !(self.items.find_by_product_id(product_id).nil?)
+  #end
   
   def is_verified?
     verified
