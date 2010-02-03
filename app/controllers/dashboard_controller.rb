@@ -26,7 +26,7 @@ class DashboardController < ApplicationController
       @products = Product.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     else
       @products = Product.all(:conditions => ["products.name REGEXP ?", params[:query]], :limit => 700)
-      @product_count = @products.count
+      @product_count = @products.size
       @products = @products.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     end
   end
