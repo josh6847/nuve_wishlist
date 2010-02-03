@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   def create
     @wishlist = current_user.wishlists.find(params[:wishlist_id])
     @product  = Product.find(params[:product_id])
-    @item = @wishlist.items.build(:product_id => @product.id)
+    @item = @wishlist.items.build(:wishlist_id => @wishlist.id, :product_id => @product.id)
     if @wishlist && @product && @item.save
       render :update do |page|
         page.replace_html "search_product_#{@product.id}", :partial => 'dashboard/search_product', :locals => {:product => @product}

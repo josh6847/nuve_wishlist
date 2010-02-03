@@ -37,7 +37,6 @@ class WishlistsController < ApplicationController
       end
     else
       render :update do |page|
-#        page << "$j('#')"
         page << %^$j('#wishlist_error').html('A wishlist must have a name')^
       end
     end
@@ -51,10 +50,8 @@ class WishlistsController < ApplicationController
     show
     page = params[:page].to_i
     params[:page] = page-1 if page != 1 && @wishlist.items.count <= ((page-1)*Item::PAGINATED_AMOUNT)
-    
     render :update do |page|
       page.replace_html "show_wishlist", :partial => 'show'
     end
-#    render_update "wishlist_#{@wishlist.id}", :action => 'show'
   end
 end

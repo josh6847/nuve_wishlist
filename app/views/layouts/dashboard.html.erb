@@ -35,9 +35,6 @@
 				<li <%= 'id="current"' if @search %>>
 					<%= link_to 'Search', search_path %>
 				</li>
-				<li <%= 'id="current"' if @deals %>>
-					<%= link_to 'Hot Deals', deals_path %>
-				</li>
 			</ul>		
 			<p id="login_message">Welcome, <%= current_user.login %></p>
 			<p id="logout"><%= link_to 'logout', logout_path, :class => 'logout' %></p>
@@ -107,15 +104,38 @@
 <div id="footer">	
 	<!-- footer-outer, wrap -->	
 	<div id="footer-outer" class="clear"><div id="footer-wrap">
-		<div class="col-b">
+		<div class="col-a">
 			<h3>Contact Info</h3>
 			<p>
 				<strong>Phone: </strong>+512-300-7563<br/>
 				<strong>Email: </strong>butler@lanuve.com<br/>
 				<strong><i>Austin, TX</i></strong>	
 			</p>			
-		<!-- /footer-bottom -->		
 		</div>
+		<div class="col-a">			
+			<h3>Site Links</h3>
+			<div class="footer-list">
+				<ul>				
+					<li><a href="/home">Home</a></li>
+					<li><a href="/search">Search</a></li>
+					<li><a href="http://www.lanuve.com" target="_blank">lanuve.com</a></li>
+				</ul>
+			</div>							
+		</div>
+		<div class="fix"></div>
+		<div id="footer-bottom">
+			<div class="bottom-left">
+				<p>
+				&copy; 2009 <strong>Copyright La Nuve, LLC</strong>&nbsp; &nbsp; &nbsp;
+				</p>
+			</div>		
+			<div class="bottom-right">
+				<p>		
+					<a href="/home">Home</a> |
+					<a href="/search">Search</a> |
+					<strong><a href="#" class="back-to-top">Back to Top</a></strong>								
+				</p>
+			</div>
 	<!-- /footer-outer, wrap -->		
 	</div></div>		
 <!-- /footer -->

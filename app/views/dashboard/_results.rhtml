@@ -1,4 +1,4 @@
-<% if @products.empty? %>
+<% if @products.empty?  %>
 	<h4>There are no results for your search "<%= params[:query] %>"</h4>
 <% else %>
 	<%= will_paginate @products, 
