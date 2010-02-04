@@ -1,8 +1,9 @@
 class WishlistsController < ApplicationController
   layout 'dashboard'
+  before_filter 'set_index'
   before_filter 'show', :only => [:update_wishlist]
+  before_filter 'authorize_edit', :only => [:update, :destroy_list]
   def index
-    @index = true
     @wishlists = current_user.wishlists
   end
   
@@ -21,14 +22,15 @@ class WishlistsController < ApplicationController
     end # respond_to
   end
   
-  def create
+  def create    #GOOD TO GO
     @wishlist = current_user.wishlists.build params[:wishlist]
     if @wishlist.save
       render :update do |page|
         page.insert_html :bottom, :wishlists_side, :partial => "li_side_menu", :locals => {:list => @wishlist}
-        page.insert_html :bottom, :wishlists_main, :partial => "li_main", :locals => {:list => @wishlist}
+        page.insert_html :bottom, :wishlists_main, :partial => "li_main", :locals => {:list => @wishlist} if 
+            params[:prev_controller] == "wishlists" && params[:prev_action] == "index"
         page << %^
-          $j('#new_wishlist_form').hide();
+          $j('#new_wishlist_form').hide(300);
           $j('#cancel_new_wishlist').hide();
           $j('#new_wishlist_button').show();
           $j('#wishlist_error').html('');
@@ -38,6 +40,26 @@ class WishlistsController < ApplicationController
     else
       render :update do |page|
         page << %^$j('#wishlist_error').html('A wishlist must have a name')^
+      end
+    end
+  end
+  
+  def update
+    
+  end
+  
+  def destroy_list
+    @wishlist.destroy
+    current_user.reload
+    @wishlist = current_user.wishlists.find(params[:wishlist_id]) rescue false
+    render :update do |page|
+      if params[:prev_action] == "show" && @wishlist
+        page.replace_html "wishlist_sidebar", :partial => 'wishlists/side_menu'# << %^
+#          $j('#side_menu_list_#{params[:id]}').hide(200);
+#          $j('#side_menu_list_#{params[:id]}').remove();
+#        ^
+      else
+        page.redirect_to :action => "index"
       end
     end
   end
@@ -54,4 +76,19 @@ class WishlistsController < ApplicationController
       page.replace_html "show_wishlist", :partial => 'show'
     end
   end
+  protected
+    def set_index
+      @index = true
+    end
+    
+    def authorize
+    end
+    
+    def authorize_edit
+      @wishlist = current_user.wishlists.find(params[:id])
+      unless @wishlist
+        redirect_to(home_path)
+        return false
+      end
+    end
 end

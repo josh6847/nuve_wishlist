@@ -44,8 +44,6 @@
 					<label for="query">Search:</label>
 					<%= text_field_tag 'query', params[:query], :class => 'tbox' %>
 					<%= submit_tag 'Search', :class => 'btn', :type => 'image', :name => 'searchsubmit', :src => '/images/search.png'%>
-<!--				<input class="tbox" id="qsearch" type="text" name="qsearch" value="Search..." title="Start typing and hit ENTER" />
-				<input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="/images/search.png" />-->
 			</p>
 		<% end %>
 		<% unless flash[:notice].blank? %>
@@ -65,29 +63,8 @@
 			<!-- /main -->
 			<!-- sidebar -->
 			<div id="sidebar">
-				<div class="sidemenu">	
-					<h3 id="wishlist_count" style="display:inline"><%= link_to current_user.wishlist_heading, home_path %></h3>
-					<%= link_to_function 'New', "$j('#new_wishlist_form').show();$j(this).hide();$j('#cancel_new_wishlist').show();$j('#new_wishlist_form input#wishlist_name').val('')", 
-																:class => 'button', :id => 'new_wishlist_button' %>
-					<%= link_to_function 'Cancel', "$j('#new_wishlist_form').hide();$j(this).hide();$j('#new_wishlist_button').show();$j('#wishlist_error').html('')", 
-																 :id => 'cancel_new_wishlist',:style => 'display:none' %>
-					<% form_remote_tag :url => {:controller => 'wishlists', 
-														 :action => 'create'}, 
-														 :html => {
-														 	 :id => 'new_wishlist_form',
-															 :style => 'display:none'} do %>
-						<span style="color:red" id="wishlist_error"></span>
-						<%= text_field_tag 'wishlist[name]' %>
-						<%= submit_tag 'Create', :class => 'button clear right'%>
-					<% end %>
-					<ul id="wishlists_side">
-						<% current_user.wishlists.each do |list| %>
-							<%= render :partial => "wishlists/li_side_menu", 
-												 :locals => {
-														:list => list,
-														:current => @wishlist && @wishlist.id == list.id }%>
-						<% end %>
-					</ul>	
+				<div class="sidemenu" id="wishlist_sidebar">	
+					<%= render :partial => "wishlists/side_menu"%>
 				</div>
 				<div style="height:300px">
 				</div>
@@ -126,7 +103,7 @@
 		<div id="footer-bottom">
 			<div class="bottom-left">
 				<p>
-				&copy; 2009 <strong>Copyright La Nuve, LLC</strong>&nbsp; &nbsp; &nbsp;
+				&copy; 2009-2010 <strong>Copyright Nuve, LLC</strong>&nbsp; &nbsp; &nbsp;
 				</p>
 			</div>		
 			<div class="bottom-right">

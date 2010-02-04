@@ -2,10 +2,10 @@ class DashboardController < ApplicationController
   layout 'dashboard'
   before_filter :search, :only => [:update_search]
   before_filter :index, :only => [:update_index]
+  before_filter :authorize_edit, :only => [:destroy_list]
 
   def index 
     @index = true
-  #  @page = params[:page].blank? ? 1 : params[:page].to_i
     @myitems = current_user.items(:include => :product).paginate( :per_page => Item::PAGINATED_AMOUNT, :page => params[:page])
   end
   
@@ -21,7 +21,8 @@ class DashboardController < ApplicationController
   
   def search
     @search = true
-    @user_product_ids = current_user.items.collect(&:product_id)
+    @user_product_ids = current_user.items(:include => :wishlist).collect(&:product_id) #wishlists get cached
+    @wishlists = current_user.wishlists
     if params[:query].blank?
       @products = Product.paginate(:page => params[:page], :per_page => Product::PAGINATED_AMOUNT)
     else
@@ -44,5 +45,23 @@ class DashboardController < ApplicationController
   def deals
     @deals = true
   end
-
+  
+  def destroy_list
+    @wishlist.destroy
+    render :update do |page|
+      page << %^
+        $j('#side_menu_list_#{params[:id]}').hide(200);
+        $j('#side_menu_list_#{params[:id]}').remove();
+      ^
+    end
+  end
+  protected
+    def authorize_edit
+      @wishlist = current_user.wishlists.find(params[:id])
+      unless @wishlist
+        redirect_to(search_path)
+        return false
+      end
+    end
+  
 end
