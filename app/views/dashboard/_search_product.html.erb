@@ -1,2 +1,29 @@
 <% has_product ||= false %>
-<%= search_product product, has_product %>
+<%#= search_product product, has_product %>
+<div class="post-title"><strong><%= product.name %></strong></div>
+<div class="post-details">
+	UPC: <%= product.upc %> 
+	<% if has_product %>
+		<%= content_tag :span, 'On wish list', :class => 'wishlist-link' %>
+	<% elsif current_user.wishlists.empty? %>
+		<span class="post-details">
+			<%= link_to_function 'Add Product',
+			 						"alert('You must have a wishlist before adding items.');",
+			 						:class => 'wishlist-link' %>
+		</span>
+	<% else %>
+		<span class="post-details">
+			<%= link_to_function 'Add Product',
+			 						"$j('#create_item_product_#{product.id}').toggle();",
+			 						:class => 'wishlist-link' %>
+		  <%#= add_to_link(product.id,has_product) %>
+		</span>
+		<br clear="both" />
+		<% form_remote_tag :url => {:controller => "items", :action => 'create'}, 
+							:html => {:style => "display:none", 
+												:id => "create_item_product_#{product.id}"} do %>
+			<%= text_field_tag 'item[desired_price]' %>
+			<%= select_tag 'item[wishlist_id]', options_for_select(current_user.wishlists.collect{|list|[list.name,list.id]})%>
+		<% end unless has_product %>
+	<% end %>
+</div>

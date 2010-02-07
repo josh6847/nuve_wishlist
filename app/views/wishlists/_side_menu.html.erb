@@ -3,10 +3,13 @@
 											:class => 'button', :id => 'new_wishlist_button' %>
 <%= link_to_function 'Cancel', "$j('#new_wishlist_form').hide(100);$j(this).hide();$j('#new_wishlist_button').show();$j('#wishlist_error').html('')", 
 											 :id => 'cancel_new_wishlist',:style => 'display:none' %>
-<% form_remote_tag :url => {:controller => 'wishlists', 
-									 :action => 'create',
-									 :prev_controller => params[:controller],
-									 :prev_action => params[:action]}, 
+<% url = {:controller => 'wishlists', 
+				 :action => 'create',
+				 :prev_controller => params[:controller],
+				 :prev_action => params[:action]}
+	 url[:wishlist_id] = @wishlist.id if @wishlist
+	%>
+<% form_remote_tag :url => url, 
 									 :html => {
 									 	 :id => 'new_wishlist_form',
 										 :style => 'display:none'} do %>
@@ -19,6 +22,6 @@
 		<%= render :partial => "wishlists/li_side_menu", 
 							 :locals => {
 									:list => list,
-									:current => @wishlist && (@wishlist.id == list.id) }%>
+									:current => (@wishlist && (@wishlist.id == list.id)) }%>
 	<% end %>
 </ul>

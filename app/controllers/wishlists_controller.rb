@@ -23,19 +23,25 @@ class WishlistsController < ApplicationController
   end
   
   def create    #GOOD TO GO
-    @wishlist = current_user.wishlists.build params[:wishlist]
-    if @wishlist.save
+    list = current_user.wishlists.build params[:wishlist]
+    if list.save
+      current_user.reload
+      @wishlist = current_user.wishlists.find params[:wishlist_id] rescue false
       render :update do |page|
-        page.insert_html :bottom, :wishlists_side, :partial => "li_side_menu", :locals => {:list => @wishlist}
-        page.insert_html :bottom, :wishlists_main, :partial => "li_main", :locals => {:list => @wishlist} if 
-            params[:prev_controller] == "wishlists" && params[:prev_action] == "index"
-        page << %^
-          $j('#new_wishlist_form').hide(300);
-          $j('#cancel_new_wishlist').hide();
-          $j('#new_wishlist_button').show();
-          $j('#wishlist_error').html('');
-          $j('#wishlist_count').html('#{current_user.wishlist_heading}');
-        ^
+        if params[:prev_controller] == 'dashboard'
+          page.redirect_to :controller => params[:prev_controller], :action => params[:prev_action]
+        else
+          page.insert_html :bottom, :wishlists_side, :partial => "li_side_menu", :locals => {:list => list}
+          page.insert_html :bottom, :wishlists_main, :partial => "li_main", :locals => {:list => list} if 
+              params[:prev_controller] == "wishlists" && params[:prev_action] == "index"
+          page << %^
+            $j('#new_wishlist_form').hide(300);
+            $j('#cancel_new_wishlist').hide();
+            $j('#new_wishlist_button').show();
+            $j('#wishlist_error').html('');
+            $j('#wishlist_count').html('#{current_user.wishlist_heading}');
+          ^
+        end
       end
     else
       render :update do |page|
@@ -53,13 +59,16 @@ class WishlistsController < ApplicationController
     current_user.reload
     @wishlist = current_user.wishlists.find(params[:wishlist_id]) rescue false
     render :update do |page|
-      if params[:prev_action] == "show" && @wishlist
-        page.replace_html "wishlist_sidebar", :partial => 'wishlists/side_menu'# << %^
-#          $j('#side_menu_list_#{params[:id]}').hide(200);
-#          $j('#side_menu_list_#{params[:id]}').remove();
-#        ^
-      else
+      if params[:id] == params[:wishlist_id] || params[:prev_action] == 'index'
         page.redirect_to :action => "index"
+      else
+        params[:action] = params[:prev_action]
+        page.replace_html "wishlist_sidebar", 
+            :partial => 'wishlists/side_menu'
+        #page << %^
+        #  $j('#side_menu_list_#{params[:id]}').hide(200);
+        #  $j('#side_menu_list_#{params[:id]}').remove();
+        #^
       end
     end
   end

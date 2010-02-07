@@ -48,12 +48,18 @@ class DashboardController < ApplicationController
   
   def destroy_list
     @wishlist.destroy
+    @wishlist = false
     render :update do |page|
-      page << %^
-        $j('#side_menu_list_#{params[:id]}').hide(200);
-        $j('#side_menu_list_#{params[:id]}').remove();
-      ^
+      page.redirect_to :action => "search"
     end
+    #render :update do |page|
+    #  page.replace_html "wishlist_sidebar", 
+    #      :partial => 'wishlists/side_menu'
+    #  #page << %^
+    #  #  $j('#side_menu_list_#{params[:id]}').hide(200);
+    #  #  $j('#side_menu_list_#{params[:id]}').remove();
+    #  #^
+    #end
   end
   protected
     def authorize_edit

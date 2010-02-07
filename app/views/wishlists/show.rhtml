@@ -1,4 +1,26 @@
-<h2><%= @wishlist.name %></h2>
+<h2 style="display:inline" id="wishlist_super_duper_title">
+	<%= @wishlist.name %>
+</h2>
+<%# form_remote_tag :url => {:action => :update, :id => @wishlist.id}, 
+									 :html => {:style => "display:none", :id => 'edit_wishlist_form'} do %>
+	<%#= text_field @wishlist, :name, :val => @wishlist.name %>
+	<%#= submit_tag 'Update', :class => 'button clear right'%>
+<%# end %>
+<%= link_to_remote 'remove', :url => {:controller => 'wishlists', :action => 'destroy_list', :id => @wishlist.id, :wishlist_id => @wishlist.id}, 
+														 :confirm => "Are you sure you'd like to remove the list #{@wishlist.name}?",
+														 :html => {:style => "font-size:12px;color:#C67114"} %>
+
+<%#= link_to_function 'edit', %^$j('#wishlist_super_duper_title').css('display','none');
+															 $j('#edit_wishlist_form').show(100);
+															 $j(this).hide();
+															 $j('#wishlist_update_cancel').show();^,
+												:id => "edit_wishlist" %>
+<%#= link_to_function'cancel',%^$j('#wishlist_super_duper_title').css('display','inline');
+															 $j('#edit_wishlist_form').hide(100);
+															 $j(this).hide();
+															 $j('#edit_wishlist').css('display','inline');^,
+												:style => "display:none;",
+												:id => "wishlist_update_cancel" %>
 <div id="show_wishlist">
 	<%= render :partial => "show"%>
 </div>
