@@ -13,14 +13,14 @@ module DashboardHelper
   end
   def add_to_link(product_id, has_product=false)
     if has_product
-      content_tag :span, 'On wish list', :class => 'wishlist-link'
+      content_tag :span, 'On wish list', :class => 'wishlist_link'
     else
       link_to_remote 'Add to Wishlist', :url => {
   	          :controller => 'items', 
   	          :action => 'create', 
   	          :wishlist_id => current_user.wishlists.first.id,
   	          :product_id => product_id}, 
-  	        :html => {:class => 'wishlist-link'}
+  	        :html => {:class => 'wishlist_link'}
     end
   end
   
@@ -36,7 +36,7 @@ module DashboardHelper
     			        :id => item.id,
     			        :page => params[:page]},
     			      :confirm => "Are you sure you'd like to remove #{item.product.name}?", 
-    			      :html => {:class => 'wishlist-link'}
+    			      :html => {:class => 'wishlist_link'}
     			  }
     		</span>
     	</div>

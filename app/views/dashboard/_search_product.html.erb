@@ -4,18 +4,18 @@
 <div class="post-details">
 	UPC: <%= product.upc %> 
 	<% if has_product %>
-		<%= content_tag :span, 'On wish list', :class => 'wishlist-link' %>
+		<%= content_tag :span, 'On wish list', :class => 'wishlist_link' %>
 	<% elsif current_user.wishlists.empty? %>
 		<span class="post-details">
 			<%= link_to_function 'Add Product',
 			 						"alert('You must have a wishlist before adding items.');",
-			 						:class => 'wishlist-link' %>
+			 						:class => 'wishlist_link' %>
 		</span>
 	<% else %>
 		<span class="post-details">
 			<%= link_to_function 'Add Product',
 			 						"$j('#create_item_product_#{product.id}').toggle();",
-			 						:class => 'wishlist-link' %>
+			 						:class => 'wishlist_link' %>
 		  <%#= add_to_link(product.id,has_product) %>
 		</span>
 		<br clear="both" />

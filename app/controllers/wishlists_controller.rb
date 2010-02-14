@@ -26,21 +26,17 @@ class WishlistsController < ApplicationController
     list = current_user.wishlists.build params[:wishlist]
     if list.save
       current_user.reload
-      @wishlist = current_user.wishlists.find params[:wishlist_id] rescue false
+      @wishlist = current_user.wishlists.find(params[:wishlist_id]) rescue false
       render :update do |page|
         if params[:prev_controller] == 'dashboard'
           page.redirect_to :controller => params[:prev_controller], :action => params[:prev_action]
         else
           page.insert_html :bottom, :wishlists_side, :partial => "li_side_menu", :locals => {:list => list}
-          page.insert_html :bottom, :wishlists_main, :partial => "li_main", :locals => {:list => list} if 
-              params[:prev_controller] == "wishlists" && params[:prev_action] == "index"
-          page << %^
-            $j('#new_wishlist_form').hide(300);
-            $j('#cancel_new_wishlist').hide();
-            $j('#new_wishlist_button').show();
-            $j('#wishlist_error').html('');
-            $j('#wishlist_count').html('#{current_user.wishlist_heading}');
-          ^
+          if params[:prev_controller] == "wishlists" && params[:prev_action] == "index"
+            @wishlists = current_user.wishlists
+            page.replace_html 'wishlists_main', :partial => 'wishlists_main'
+          end
+          page << reset_wishlist_side_form
         end
       end
     else

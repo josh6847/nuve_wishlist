@@ -43,7 +43,19 @@ class ApplicationController < ActionController::Base
   end
   
   protected
-  
+    
+    helper_method :reset_wishlist_side_form
+    def reset_wishlist_side_form
+      current_user.reload
+      %^
+        $j('#new_wishlist_form').hide(300);
+        $j('#cancel_new_wishlist').hide();
+        $j('#new_wishlist_button').show();
+        $j('#wishlist_error').html('');
+        $j('#wishlist_count').html('#{current_user.wishlist_heading}');
+      ^
+    end
+    
     def is_verified?
       unless (current_user && current_user.is_verified?)
         flash[:error] = 'Account has not been verified. Please check your email.'

@@ -1,0 +1,5 @@
+<ul class="archive">
+	<% @wishlists.each do |list|%>
+		<%= render :partial => "li_main", :locals => {:list => list}%>
+	<% end %>
+</ul>

@@ -2,7 +2,7 @@
 <li <%= 'class="current"' if current %> id="side_menu_list_<%= list.id %>">
 	<%= link_to(list.name, :controller => 'wishlists', :action => 'show', :id => list.id)%>
 	<span class="post-details" style="display:inline">
-		<a onclick="if (confirm('Are you sure you\'d like to remove <%= list.name %>?')) { new Ajax.Request('/<%=params[:controller]%>/destroy_list?id=<%=list.id%>&prev_action=<%=params[:action]%><%="&wishlist_id=#{@wishlist.id}" if @wishlist %>', {asynchronous:true, evalScripts:true});}; return false;" href="#" confirm="Are you sure you'd like to remove <%= list.name %>?" class="wishlist-link right">X</a>
+		<a onclick="if (confirm('Are you sure you\'d like to remove <%= list.name %>?')) { new Ajax.Request('/<%=params[:controller]%>/destroy_list?id=<%=list.id%>&prev_action=<%=params[:action]%><%="&wishlist_id=#{@wishlist.id}" if @wishlist %>', {asynchronous:true, evalScripts:true});}; return false;" href="#" confirm="Are you sure you'd like to remove <%= list.name %>?" class="wishlist_link right">X</a>
 		<%# url = {:controller => params[:controller], 
 							:action => "destroy",
 							:prev_action => params[:action],
@@ -12,6 +12,6 @@
 		<%#= link_to_remote 'X', :url => url,
 		      									:confirm => "Are you sure you'd like to remove #{list.name}?", 
 		      									:html => {
-															:class => 'wishlist-link right'} %>
+															:class => 'wishlist_link right'} %>
 	</span>
 </li>

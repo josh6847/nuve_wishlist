@@ -9,11 +9,11 @@ body {
 }
 
 /* links */
-a:link, a:visited, #sidebar a.wishlist-link { 
+a:link, a:visited, #sidebar a.wishlist_link { 
 	text-decoration: none;
 	color: #c67114;	
 }
-a:hover { color: #fff; }
+a:hover, a.wishlist_link:hover { color: #fff; }
 a:link.more, a:visited.more {
 	float: left;	
 	margin-top: 20px;	
@@ -533,7 +533,7 @@ input.button,a.button {
 .sidemenu ul li a:visited {
 	padding-left: 0;	
 	font-weight: bold;		
-	color: #F1E3D8;
+	/*color: #F1E3D8;*/
 }
 .sidemenu ul li span {
 	display: block;	
@@ -765,7 +765,7 @@ ul.archive li .post-title {
 	font-size: 1.2em;	
 }
 ul.archive li .post-title a {
-	color: #F1E3D8;
+/*	color: #F1E3D8;*/
 }
 ul.archive li .post-title a:hover {
 	border: none;
@@ -779,7 +779,7 @@ ul.archive li .post-details, .sidemenu ul li .post-details {
 .sidemenu ul li:hover,ul.archive li:hover {
 	background-color: #663300;
 }
-ul.archive li .wishlist-link {	
+ul.archive li .wishlist_link {	
 	margin-left: 0;
 	margin-top: 0;
 	font-size: 1em;	

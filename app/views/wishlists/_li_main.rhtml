@@ -1,4 +1,17 @@
 <li id="list_item_<%= list.id %>">
-	<%= link_to list.name.upcase, :action => 'show', :id => list.id %>
-	&nbsp;(<%= list.items.count %>)
+	<div class="post-title">
+		<%= link_to list.name.upcase, :action => 'show', :id => list.id %>
+	</div>
+	<div class="post-details">
+		<%= list.items.count %> item(s)
+		<span class="post-details">
+			<%= link_to_remote 'remove', :url => {:controller => 'wishlists', 
+																					:action => 'destroy_list', 
+																					:id => list.id, 
+																					:prev_action => 'index'}, 
+																 :confirm => "Are you sure you'd like to remove the list #{list.name}?",
+																 :html => {
+																		:class => 'wishlist_link'} %>
+		</span>
+	</div>
 </li>

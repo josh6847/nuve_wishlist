@@ -2,8 +2,10 @@
 <p>
 	All of your wishlists are listed below. Click 'New' to the right to create a list.
 </p>
-<ul class="archive" id="wishlists_main">
-	<% @wishlists.each do |list|%>
-		<%= render :partial => "li_main", :locals => {:list => list}%>
+<div id="wishlists_main">
+	<% if @wishlists.empty? %>
+		<h4>You don't have any wishlists at this time.</h4>
+	<% else %>
+		<%= render :partial => "wishlists_main" %>
 	<% end %>
-</ul>
+</div>

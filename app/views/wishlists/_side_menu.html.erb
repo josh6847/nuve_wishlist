@@ -1,8 +1,8 @@
-<h3 id="wishlist_count" style="display:inline"><%= link_to current_user.wishlist_heading, home_path %></h3>
-<%= link_to_function 'New', "$j('#new_wishlist_form').show(200);$j(this).hide();$j('#cancel_new_wishlist').show();$j('#new_wishlist_form input#wishlist_name').val('')", 
-											:class => 'button', :id => 'new_wishlist_button' %>
-<%= link_to_function 'Cancel', "$j('#new_wishlist_form').hide(100);$j(this).hide();$j('#new_wishlist_button').show();$j('#wishlist_error').html('')", 
-											 :id => 'cancel_new_wishlist',:style => 'display:none' %>
+<h3 id="wishlist_count" style="display:inline">
+	<%= link_to current_user.wishlist_heading, home_path %>
+</h3>
+<%= link_to 'new', 		'#', :class => 'button', :id => 'new_wishlist_button'%> 
+<%= link_to 'cancel', '#', :style => 'display:none', :id => 'cancel_new_wishlist'  %>
 <% url = {:controller => 'wishlists', 
 				 :action => 'create',
 				 :prev_controller => params[:controller],
@@ -15,7 +15,7 @@
 										 :style => 'display:none'} do %>
 	<span style="color:red" id="wishlist_error"></span>
 	<%= text_field_tag 'wishlist[name]' %>
-	<%= submit_tag 'Create', :class => 'button clear right'%>
+	<%= submit_tag 'create', :class => 'button clear right'%>
 <% end %>
 <ul id="wishlists_side">
 	<% current_user.wishlists.each do |list| %>
@@ -25,3 +25,17 @@
 									:current => (@wishlist && (@wishlist.id == list.id)) }%>
 	<% end %>
 </ul>
+<script type="text/javascript" charset="utf-8">
+	$j(document).ready(function() {
+		$j('#new_wishlist_button').click(function() {
+			$j('#new_wishlist_form').show(200);
+			$j(this).hide();
+			$j('#cancel_new_wishlist').show();
+			$j('#new_wishlist_form input#wishlist_name').val('')
+		});
+		
+		$j('#cancel_new_wishlist').click(function() {
+			<%= reset_wishlist_side_form%>
+		})
+	})
+</script>
