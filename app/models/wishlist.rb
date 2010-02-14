@@ -5,7 +5,7 @@ class Wishlist < ActiveRecord::Base
   before_create :set_position
   
   def set_position
-    self.position = Wishlist.all(:conditions => {:user_id => self.user_id}).count + 1
+    self.position = Wishlist.all(:conditions => {:user_id => self.user_id}).size + 1
   end
   
 end
